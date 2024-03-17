@@ -1,31 +1,20 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
-<main class="mat-app-background" style="height: 100%;" >
+<main class="mat-app-background" style="height: 100%;">
   <div>
-    <button mat-button>Basic</button>
-    <button mat-button color="primary">Primary</button>
-    <button mat-button color="accent">Accent</button>
-    <button mat-button color="warn">Warn</button>
-    <button mat-button disabled>Disabled</button>
-    <app-token-manager></app-token-manager>
+    <mat-drawer-container class="example-container" [hasBackdrop]="false">
+      <mat-drawer #drawer mode="side">
+        <div class="flex-column" style="padding: 1em;">
+          <h2>Modules</h2>
+          <button mat-stroked-button color="primary" (click)="toggleTokenManager()">Token Counter Manager</button>
+          <button mat-stroked-button color="primary">Turn Order</button>
+        </div>
+      </mat-drawer>
+      <mat-drawer-content>
+        <button mat-raised-button (click)="drawer.toggle()"><- Modules</button>
+        <app-token-manager [showManager]="showTokenManager" ></app-token-manager>
+
+      </mat-drawer-content>
+    </mat-drawer-container>
   </div>
 </main>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 <router-outlet />

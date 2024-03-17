@@ -1,6 +1,39 @@
-.token-manager{
+.token-manager {
     margin: 1em;
-    padding: 1em;
+    padding-right: 1em;
     border: solid;
-    border-color: var(--mat-toolbar-container-background-color)
+    border-radius: 1px;
+    border-color: cadetblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.reverse {
+    flex-direction: row-reverse;
+}
+
+button {
+    justify-content: center;
+}
+
+.drag.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }

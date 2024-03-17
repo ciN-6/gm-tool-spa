@@ -1,33 +1,39 @@
-<div class="token-manager">
-  <h1>Token Manager</h1>
-  <div class="flex-row">
-    <form>
-      <mat-form-field>
-        <mat-label>Token pool name</mat-label>
-        <input matInput 
-          type="text"
-          aria-label="Token pool name"
-          placeholder="Combat Actions"
-          [formControl]="tokenNameInputCtrl"
-          [matAutocomplete]="auto">
+<div id="tokenManager" [class]="tokenManagerClass">
+
+  @if(showManager){
+  <div class="flex-column" style="gap: 10px;">
+    <h1>Token Manager</h1>
+
+    <div style="padding-left: 1em;">
+      <form>
+        <mat-form-field>
+          <mat-label>Token pool name</mat-label>
+          <input matInput type="text" aria-label="Token pool name" placeholder="Combat Actions"
+            [formControl]="tokenNameInputCtrl" [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete">
             @for (option of filteredOptions | async; track option) {
-              <mat-option [value]="option">{{option}}</mat-option>
+            <mat-option [value]="option">{{option}}</mat-option>
             }
           </mat-autocomplete>
-      </mat-form-field>
-    </form>
-    <button mat-stroked-button color="primary" (click)="ajouterToken()">ajouter token</button>
-  </div>
+        </mat-form-field>
 
-  <div class="flex-row">
-    @for (counter of counters; track counter) {
-      <div style="width: min-content;">
+        <div>
+          <button mat-stroked-button color="primary" (click)="ajouterToken()">ajouter token</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  }
+  <div style="display: grid;">
+    <div cdkDropList id="'asdf" cdkDropListOrientation="horizontal" cdkDragBoundary=".drag" (cdkDropListDropped)="drop($event)">
+      @for (counter of counters; track counter) {
+      <div cdkDrag style="display: flex;">
         <app-token-counter [counterName]="counter" (removeCounterParent)="removeCounter($event)">
         </app-token-counter>
       </div>
-    } @empty {
+      } @empty {
       <div>No Counters</div>
-    }
+      }
+    </div>
   </div>
 </div>

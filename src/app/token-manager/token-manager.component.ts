@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TokenCounterComponent } from '../token-counter/token-counter.component';
 import { Observable, map, startWith } from 'rxjs';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-token-manager',
@@ -17,6 +18,7 @@ import { Observable, map, startWith } from 'rxjs';
   imports: [
     AsyncPipe,
     CommonModule,
+    CdkDropList, CdkDrag,
     FormsModule, 
     MatAutocompleteModule,
     MatButtonModule, 
@@ -26,16 +28,34 @@ import { Observable, map, startWith } from 'rxjs';
     TokenCounterComponent 
   ]
 })
-export class TokenManagerComponent implements OnInit {
+export class TokenManagerComponent implements OnInit, OnChanges {
   
+  
+  public tokenManagerClass:string = "token-manager";
   public tokenNameInputCtrl = new FormControl('');
   public tokenNameOptions: string[] = [];
   public counters: string[] = [];
   public tokenName: string = "";
   public filteredOptions: Observable<string[]> = new Observable<string[]>();
+  @Input()
+  public showManager:boolean=false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    let showManagerChanges = changes['showManager'];
+    if (showManagerChanges.currentValue){
+      this.tokenManagerClass = "token-manager";
+    } else {
+      this.tokenManagerClass = "token-manager reverse";
+    }
+  }
+
 
   ngOnInit(): void {
     this.counters.push("Fear");
+    this.counters.push("Combat");
+    this.counters.push("Super Spell (d4)");
+    this.counters.push("Mauvais Spell (d8)");
+
     let storage = localStorage.getItem('tokenCounterNames');
     if (storage) {
       this.tokenNameOptions = JSON.parse(storage);
@@ -67,6 +87,15 @@ export class TokenManagerComponent implements OnInit {
     if (index > -1) { // only splice array when item is found
       this.counters.splice(index, 1); // 2nd parameter means remove one item only
     }
+  }
+
+  public drop (event : any){
+    console.log(event)
+    console.log(JSON.stringify(this.counters))
+    moveItemInArray(this.counters, event.previousIndex,event.currentIndex);
+    console.log(JSON.stringify(this.counters))
+    console.log(this.counters)
+
   }
 
 

@@ -1,6 +1,19 @@
 .token-counter{
-    margin: 1em;
-    padding: 1em;
-    border: 2em;
-    border-color: var(--mat-toolbar-container-background-color)
+    margin: 1em 1em 1em 0;
+    // padding-right: 1em;
+    border: 2px;
+    border-color: var(--mat-snack-bar-button-color);
+    align-self: center;
+    background-color: gray;
+    cursor: grab;
+
+    
 }
+
+.dragBoundary {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border: dotted #ccc 2px;
+
+  }

@@ -1,20 +1,28 @@
-<div class="token-counter">
-
-    <div class="flex-row" style="flex-wrap: nowrap;">
-        <h1 style="padding-right:1em;">{{counterName}}</h1>
-        <button mat-mini-fab  (click)="removeCounter()" >
-            <mat-icon>remove</mat-icon>
-        </button>
-    </div>
-    <div class="flex-row" style="flex-wrap: nowrap;">
-        <button mat-icon-button (click)="substract()">
-            <mat-icon>remove</mat-icon>
-        </button>
-        <div>
-            <h2>{{count}}</h2>
+<mat-card class="token-counter" cdkDrag>
+    <mat-card-content>
+        <div class="flex-row" style="flex-wrap: nowrap; justify-content: center;">
+            <h1 style="padding-right:1em;">{{counterName}}</h1>
+            <div style="align-self: center;">
+                <button mat-mini-fab (click)="removeCounter()">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
         </div>
-        <button mat-icon-button (click)="add()">
-            <mat-icon>add</mat-icon>
-        </button>
-    </div>
-</div>
+        <div class="flex-row" style="flex-wrap: nowrap; justify-content: space-between;">
+            <div style="align-self: center;">
+                <button mat-mini-fab (click)="substract()">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </div>
+            <div>
+                <h2>{{count}}</h2>
+            </div>
+            <div style="align-self: center;">
+                <button mat-mini-fab (click)="add()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+
+</mat-card>

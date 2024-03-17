@@ -10,11 +10,11 @@
             type="text"
             aria-label="Token pool name"
             placeholder="Combat Actions"
-            [formControl]="tokenNameInputCtrl"
+            [formControl]="playerNameInputCtrl"
             [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-              @for (option of filteredOptions | async; track option) {
-                <mat-option [value]="option">{{option}}</mat-option>
+              @for (playerName of filteredOptions | async; track playerName) {
+                <mat-option [value]="playerName">{{playerName}}</mat-option>
               }
             </mat-autocomplete>
         </mat-form-field>
