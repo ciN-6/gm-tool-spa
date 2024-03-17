@@ -1,0 +1,25 @@
+
+
+
+<div class="turn-order">
+
+    <form>
+        <mat-form-field>
+          <mat-label>Token pool name</mat-label>
+          <input matInput 
+            type="text"
+            aria-label="Token pool name"
+            placeholder="Combat Actions"
+            [formControl]="tokenNameInputCtrl"
+            [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (option of filteredOptions | async; track option) {
+                <mat-option [value]="option">{{option}}</mat-option>
+              }
+            </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    
+
+
+</div>

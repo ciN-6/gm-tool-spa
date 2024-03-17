@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+// @use '@angular/material' as mat;
+
+// @include mat.core();
+@use '@angular/material' as mat;
+
+@include mat.core();
+$my-primary: mat.define-palette(mat.$cyan-palette, 500);
+$my-accent: mat.define-palette(mat.$orange-palette, A200, A100, A700);
+
+$my-theme: mat.define-dark-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ typography: mat.define-typography-config(),
+ density: 2,
+));
+@include mat.core-theme($my-theme);
+@include mat.all-component-themes($my-theme);
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;    
+    flex-wrap: wrap;
+}
+
+mat-button, mat-stroked-button {
+    padding: 0 5px 5px 0;
+}
