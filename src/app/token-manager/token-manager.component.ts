@@ -53,8 +53,6 @@ export class TokenManagerComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.counters.push("Fear");
     this.counters.push("Combat");
-    this.counters.push("Super Spell (d4)");
-    this.counters.push("Mauvais Spell (d8)");
 
     let storage = localStorage.getItem('tokenCounterNames');
     if (storage) {
@@ -90,12 +88,7 @@ export class TokenManagerComponent implements OnInit, OnChanges {
   }
 
   public drop (event : any){
-    console.log(event)
-    console.log(JSON.stringify(this.counters))
     moveItemInArray(this.counters, event.previousIndex,event.currentIndex);
-    console.log(JSON.stringify(this.counters))
-    console.log(this.counters)
-
   }
 
 
