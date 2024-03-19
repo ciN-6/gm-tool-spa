@@ -5,6 +5,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Observable, map, startWith } from 'rxjs';
 
@@ -21,6 +22,7 @@ import { Observable, map, startWith } from 'rxjs';
     MatAutocompleteModule,
     MatButtonModule, 
     MatFormFieldModule,
+    MatIcon,
     MatInputModule,
     ReactiveFormsModule]
 })
@@ -53,6 +55,13 @@ export class TurnOrderComponent implements OnInit {
       }
     }
   }
+  public enleverPlayer(player:string) {    
+    const idx = this.players.indexOf(player);
+    if (idx > -1) {
+      this.players.splice(idx,1);
+    }
+  }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.filteredPlayerNames.filter(option => option.toLowerCase().includes(filterValue));

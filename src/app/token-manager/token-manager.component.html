@@ -24,10 +24,10 @@
     </div>
   </div>
   }
-  <div style="display: grid;">
-    <div cdkDropList id="'asdf" cdkDropListOrientation="horizontal" cdkDragBoundary=".drag" (cdkDropListDropped)="drop($event)">
+  <div >
+    <div cdkDropList id="'asdf" cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
       @for (counter of counters; track counter) {
-      <div cdkDrag style="display: flex;">
+      <div cdkDrag style="display: flex;" class="example-box">
         <app-token-counter [counterName]="counter" (removeCounterParent)="removeCounter($event)">
         </app-token-counter>
       </div>
