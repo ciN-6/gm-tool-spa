@@ -1,7 +1,8 @@
-
-
-
 <main class="mat-app-background" style="height: 100%;">
-
+  <div class="flex-row">
+    <button mat-stroked-button color="primary" routerLink="/counters" routerLinkActive="activebutton" >counters</button>
+    <button mat-stroked-button color="primary" routerLink="/player-turn-order" routerLinkActive="activebutton">player turn order</button>
+    <button mat-stroked-button color="primary" routerLink="/charts" routerLinkActive="activebutton">charts</button>
+  </div>
   <router-outlet />
 </main>
