@@ -1,0 +1,50 @@
+<div class="flex-row" style="padding: 2em;">
+    <div class="flex-column">
+        @for (die of dice; track die) {
+        <img src="{{die.src}}" width="48" height="48" (click)="addDice(die)" style="padding: 4px;">
+        }
+        <div class="flex-column">
+            <h2>Modifier</h2>
+            <div class="flex-row">
+                <button mat-stroked-button color="accent" (click)="minusOne()">-1</button>
+                <div style="font-size: xx-large; padding-left: 7px; padding-right: 7px;">{{modifier}}</div>
+                <button mat-stroked-button color="primary" (click)="plusOne()">+1</button>
+            </div>
+        </div>
+    </div>
+    <div style="padding-left: 2em;">
+        <div class="flex-row" style="padding-bottom: 1em;">
+            @for (die of chosenDice; track die) {
+            <img src="{{die.src}}" width="48" height="48" (click)="removeDice(die)">
+            }
+        </div>
+        <div class="flex-column">
+            <button mat-flat-button color="primary" (click)="roll()">roll</button>
+            <button mat-flat-button color="accent" (click)="clear()">clear</button>
+        </div>
+    </div>
+    <div class="flex-column" style="padding-left: 2em; font-size: xxx-large;">
+        @if (total>0) {
+        <div>Total -> </div>
+        <div style="color: greenyellow;">{{total}}</div>
+        }
+        <div class="flex-row" style="font-size: small;">
+            @for (rolledDie of rolledDice; track $index) {
+            <div>(d{{rolledDie.type}}) -></div>
+            <div style="color: burlywood; padding-left: 5px;">
+                {{rolledDie.valueRolled}}
+            </div>
+            @if (!$last) {<div style="padding: 0 5px;"> + </div>}
+            @if ($last) {<div style="padding: 0 5px;"> + Mod : {{modifier}}</div>}
+            }
+        </div>
+    </div>
+</div>
+<div style="padding: 2em; height: 100%;">
+    @for (die of dice; track die) {
+    <button mat-flat-button color="accent" (click)="diceTester(die)">D{{die.type}}</button>
+    }
+    @if(chartData) {<app-charts [data]="chartData"></app-charts>}
+
+
+</div>
