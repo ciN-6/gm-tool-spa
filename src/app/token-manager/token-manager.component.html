@@ -1,4 +1,4 @@
-<div id="tokenManager" [class]="tokenManagerClass">
+<div id="tokenManager" class="token-manager">
 
   @if(showManager){
   <div class="flex-column" style="gap: 10px;">
@@ -24,16 +24,14 @@
     </div>
   </div>
   }
-  <div >
-    <div cdkDropList id="'asdf" cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-      @for (counter of counters; track counter) {
-      <div cdkDrag style="display: flex;" class="example-box">
-        <app-token-counter [counterName]="counter" (removeCounterParent)="removeCounter($event)">
-        </app-token-counter>
-      </div>
-      } @empty {
-      <div>No Counters</div>
-      }
+  <div class="token-list">
+    @for (counter of counters; track counter) {
+    <div >
+      <app-token-counter [counterName]="counter" (removeCounterParent)="removeCounter($event)">
+      </app-token-counter>
     </div>
+    } @empty {
+    <div>No Counters</div>
+    }
   </div>
 </div>
