@@ -1,0 +1,118 @@
+<div class="page">
+    <div class="grid" style="gap: 8px;">
+        <mat-card>
+            <mat-card-content>
+                <div class="flex-row" style="align-items: center; flex-wrap: nowrap;">
+                    @for (die of dice; track die) {<img src="{{die.src}}">}
+                    <div style="padding: 1em;">
+                        <button mat-flat-button color="primary" (click)="dualRoll()">Roll</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content class="grid3Column" style="align-items: center; flex-wrap: nowrap;">
+                <div style="width: min-content;">
+                    <img [src]="advDieSrc" (click)="addAdv()">
+                    <div class="overlay-text">{{advAmount}}</div>
+                </div>
+                <div style="width: min-content;">
+                    <img [src]="disDieSrc" (click)="addDis()">
+                    <div class="overlay-text">{{disAmount}}</div>
+                </div>
+                <div>
+                    <button mat-stroked-button color="warn" (click)="resetModifiers(true)">
+                        reset
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <div style="padding-top: 1em;" style="font-size: x-large;" class="flex-column">
+                    @if (isCritical) {
+                    <div class="flex-row txt-primary" style="align-content: center;">
+                        <img [src]="criticalDie">
+                        <img [src]="criticalDie">
+                        <div class="flex-column" style="padding-left: 8px; align-content: center;">
+                            <div>Crit | {{totalRolled}}</div>
+                            <div class="flex-row">
+                                <div style="font-size: small; padding-right: 4px;" class="txt-primary">{{fearValue}}</div>
+                                <div style="font-size: small; padding-right: 4px;" class="txt-primary">{{hopeValue}}</div>
+
+                                @if(advValue){
+                                    @for (die of advDice; track die) {
+                                        <div class="txt-green" style="font-size: small;padding-right: 4px;" >
+                                            {{die.valueRolled}}
+                                        </div>}
+                                    }
+                                
+                                @if(disValue){
+                                    @for (die of disDice; track die) {
+                                    <div class="txt-red" style="font-size: small;padding-right: 4px;" >
+                                        {{die.valueRolled}}
+                                    </div>}
+                                }
+
+                            </div>
+                        </div>
+                    </div>}
+                    @if (isHope) {
+                    <div class="flex-row txt-accent" style="align-content: center;">
+                        <img [src]="hopeDie">
+                        <div class="flex-column" style="padding-left: 8px; align-content: center;">
+                            <div>Hope | {{totalRolled}}</div>
+                            <div class="flex-row">
+                                <div style="font-size: small; padding-right: 4px;" class="txt-fear">{{fearValue}}</div>
+                                <div style="font-size: small; padding-right: 4px;" class="txt-accent">{{hopeValue}}</div>
+                                @if(advValue){
+                                    @for (die of advDice; track die) {
+                                        <div class="txt-green" style="font-size: small;padding-right: 4px;" >
+                                            {{die.valueRolled}}
+                                        </div>}
+                                    }
+                                
+                                @if(disValue){
+                                    @for (die of disDice; track die) {
+                                    <div class="txt-red" style="font-size: small;padding-right: 4px;" >
+                                        {{die.valueRolled}}
+                                    </div>}
+                                }
+
+                            </div>
+                        </div>
+                    </div>}
+                    @if (isFear) {
+                    <div class="flex-row txt-fear" style="align-content: center;">
+                        <img [src]="fearDie">
+                        <div class="flex-column" style=" padding-left: 8px; align-content: center;">
+                            <div>Fear | {{totalRolled}}</div>
+                            <div class="flex-row">
+                                <div style="font-size: small; padding-right: 4px;" class="txt-fear">{{fearValue}}</div>
+                                <div style="font-size: small; padding-right: 4px;" class="txt-accent">{{hopeValue}}</div>
+                                @if(advValue){
+                                    @for (die of advDice; track die) {
+                                        <div class="txt-green" style="font-size: small;padding-right: 4px;" >
+                                            {{die.valueRolled}}
+                                        </div>}
+                                    }
+                                
+                                @if(disValue){
+                                    @for (die of disDice; track die) {
+                                    <div class="txt-red" style="font-size: small;padding-right: 4px;" >
+                                        {{die.valueRolled}}
+                                    </div>}
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                    }
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>

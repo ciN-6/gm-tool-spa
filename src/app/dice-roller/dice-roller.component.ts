@@ -2,21 +2,23 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ChartsComponent } from '../charts/charts.component';
 import { of } from 'rxjs';
+import { Die } from '../models/die';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-dice-roller',
   standalone: true,
-  imports: [MatButtonModule, ChartsComponent],
+  imports: [MatButtonModule, ChartsComponent, MatCardModule],
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss'
 })
 export class DiceRollerComponent {
   public dice: Die[] = [
-    { type: 4, src: "assets/dice/d4.svg" },
-    { type: 6, src: "assets/dice/d6.svg" },
-    { type: 8, src: "assets/dice/d8.svg" },
-    { type: 12, src: "assets/dice/d12.svg" },
-    { type: 20, src: "assets/dice/d20.svg" }
+    { size: 4, src: "assets/dice/d4-teal.svg" },
+    { size: 6, src: "assets/dice/d6-teal.svg" },
+    { size: 8, src: "assets/dice/d8-teal.svg" },
+    { size: 12, src: "assets/dice/d12-teal.svg" },
+    { size: 20, src: "assets/dice/d20-teal.svg" }
   ]
 
   public chosenDice: Die[] = [];
@@ -56,21 +58,23 @@ export class DiceRollerComponent {
   }
 
   private rollOneDie(die: Die) {
-    return Math.floor(Math.random() * die.type)+ 1;
+    return Math.floor(Math.random() * die.size)+ 1;
   }
 
   public plusOne(){
     this.modifier++;
+    this.total++;
   }
   public minusOne(){
     this.modifier--;
+    this.total--;
   }
 
 public diceTester(die:Die) {
   // let die:Die = {src:"",type:20}
 
   let data = [];
-  for (let i = 1; i<=die.type; i++){
+  for (let i = 1; i<=die.size; i++){
     data.push({value:i,timeRolled:0})
   }
   
@@ -86,8 +90,3 @@ public diceTester(die:Die) {
 
 
 
-export class Die {
-  type: number = 0;
-  src: string = "";
-  valueRolled?: number = 0;
-}
