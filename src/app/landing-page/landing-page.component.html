@@ -1,16 +1,16 @@
 <div>
-    <mat-drawer-container class="example-container" [hasBackdrop]="false">
-      <mat-drawer #drawer mode="side">
-        <div class="flex-column" style="padding: 1em;">
-          <h2>Modules</h2>
-          <button mat-stroked-button color="primary" (click)="toggleTokenManager()">Token Counter Manager</button>
-          <button mat-stroked-button color="primary" (click)="toggleTurnOrder()">Turn Order</button>
-        </div>
-      </mat-drawer>
-      <mat-drawer-content>
-        <button mat-raised-button (click)="drawer.toggle()"><- Modules</button>
-        <app-token-manager [showManager]="showTokenManager" ></app-token-manager>
-        <app-turn-order [showManager]="showTurnOrder"></app-turn-order>
-      </mat-drawer-content>
-    </mat-drawer-container>
-  </div>
+  <mat-drawer-container class="example-container" [hasBackdrop]="false">
+    <mat-drawer #drawer mode="side">
+      <div class="flex-column" style="padding: 1em;">
+        <h2>Modules</h2>
+        <button mat-stroked-button color="primary" (click)="toggleTokenManager()">Token Counter Manager</button>
+        <button mat-stroked-button color="primary" (click)="toggleTurnOrder()">Turn Order</button>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <button mat-raised-button (click)="drawer.toggle()" color="primary"><- Modules</button>
+          <app-token-manager></app-token-manager>
+          <app-turn-order [showManager]="showTurnOrder"></app-turn-order>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

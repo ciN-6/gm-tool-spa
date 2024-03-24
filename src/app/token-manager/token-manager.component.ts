@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TokenCounterComponent } from '../token-counter/token-counter.component';
 import { Observable, map, startWith } from 'rxjs';
-import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-token-manager',
@@ -18,7 +17,6 @@ import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/d
   imports: [
     AsyncPipe,
     CommonModule,
-    CdkDropList, CdkDrag,
     FormsModule, 
     MatAutocompleteModule,
     MatButtonModule, 
@@ -28,7 +26,7 @@ import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/d
     TokenCounterComponent 
   ]
 })
-export class TokenManagerComponent implements OnInit, OnChanges {
+export class TokenManagerComponent implements OnInit {
   
   
   public tokenManagerClass:string = "token-manager";
@@ -37,22 +35,15 @@ export class TokenManagerComponent implements OnInit, OnChanges {
   public counters: string[] = [];
   public tokenName: string = "";
   public filteredOptions: Observable<string[]> = new Observable<string[]>();
-  @Input()
-  public showManager:boolean=false;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    let showManagerChanges = changes['showManager'];
-    if (showManagerChanges.currentValue){
-      this.tokenManagerClass = "token-manager";
-    } else {
-      this.tokenManagerClass = "token-manager reverse";
-    }
-  }
+  public showManager:boolean=true;
 
 
   ngOnInit(): void {
     this.counters.push("Fear");
     this.counters.push("Combat");
+    this.counters.push("Health");
+    this.counters.push("Stress");
+    this.counters.push("Hope");
 
     let storage = localStorage.getItem('tokenCounterNames');
     if (storage) {
@@ -86,11 +77,6 @@ export class TokenManagerComponent implements OnInit, OnChanges {
       this.counters.splice(index, 1); // 2nd parameter means remove one item only
     }
   }
-
-  public drop (event : any){
-    moveItemInArray(this.counters, event.previousIndex,event.currentIndex);
-  }
-
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

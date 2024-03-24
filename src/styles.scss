@@ -1,27 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-// @use '@angular/material' as mat;
-
-// @include mat.core();
 @use '@angular/material' as mat;
+@import 'variable';
 
 @include mat.core();
-$my-primary: mat.define-palette(mat.$cyan-palette, 500);
-$my-accent: mat.define-palette(mat.$lime-palette, A100, A200, A700);
-$my-warn: mat.define-palette(mat.$red-palette, A100, A200, A700);
-$gray-palette:mat.define-palette(mat.$grey-palette, A100, A200, A700);
-$fear-palette:mat.define-palette(mat.$purple-palette, A100, A200, A700);
-$green-palette:mat.define-palette(mat.$green-palette, A100, A200, A700);
-
-$my-theme: mat.define-dark-theme((
- color: (
-   primary: $my-primary,
-   accent: $my-accent,
-   warn: $my-warn
-
- ),
- typography: mat.define-typography-config(),
- density: 2,
-));
 @include mat.core-theme($my-theme);
 @include mat.all-component-themes($my-theme);
 
@@ -65,7 +46,7 @@ body {
     color:mat.get-color-from-palette($my-accent, 900);
 }
 .txt-darker{
-    color:mat.get-color-from-palette($gray-palette, 600);
+    color:mat.get-color-from-palette($my-gray-palette, 600);
 }
 .page{
     padding: 2em;

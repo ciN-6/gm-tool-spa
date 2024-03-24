@@ -1,0 +1,22 @@
+// @import '~@angular/material/theming';
+@use '@angular/material' as mat;
+
+$my-primary: mat.define-palette(mat.$cyan-palette, 500);
+$my-accent: mat.define-palette(mat.$light-green-palette, A100, A200, A700);
+$my-warn: mat.define-palette(mat.$red-palette, A100, A200, A700);
+$my-gray-palette:mat.define-palette(mat.$grey-palette, A100, A200, A700);
+$fear-palette:mat.define-palette(mat.$purple-palette, A100, A200, A700);
+$green-palette:mat.define-palette(mat.$green-palette, A100, A200, A700);
+$my-theme: mat.define-dark-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn
+
+ ),
+ typography: mat.define-typography-config(),
+ density: 2,
+));
+
+$primary-default: mat.get-theme-color($my-theme, primary, default);
+$header-highlight: mat.define-palette($my-gray-palette, 100);
