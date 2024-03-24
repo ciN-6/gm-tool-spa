@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg2"
+    sodipodi:docname="dice2.svg"
+    viewBox="0 0 92.844 108.17"
+    version="1.1"
+    inkscape:version="0.48+devel r"
+  >
+  <sodipodi:namedview
+      id="base"
+      fit-margin-left="0"
+      inkscape:zoom="2.8"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="143.06751"
+      inkscape:cy="-58.635635"
+      inkscape:window-maximized="1"
+      showgrid="false"
+      fit-margin-right="0"
+      inkscape:snap-nodes="false"
+      inkscape:document-units="px"
+      bordercolor="#666666"
+      inkscape:window-x="0"
+      inkscape:window-y="27"
+      fit-margin-bottom="0"
+      inkscape:window-width="1669"
+      inkscape:pageopacity="0.0"
+      inkscape:pageshadow="2"
+      pagecolor="#ffffff"
+      inkscape:window-height="994"
+      fit-margin-top="0"
+  />
+  <g
+      id="layer1"
+      inkscape:label="Calque 1"
+      inkscape:groupmode="layer"
+      transform="translate(-176.35 -57.412)"
+    >
+    <g
+        id="g3129"
+        transform="translate(-346.99 -431.84)"
+      >
+      <path
+          id="path3107"
+          d="m524.77 512.06c2.3542-6.6385 47.851-23.571 54.296-22.223 6.4443 1.3475 33.453 31.076 34.977 36.239 1.5238 5.1637 2.487 43.345 0.50507 47.098s-47.246 24.342-53.664 23.739c-6.4187-0.60334-31.313-31.472-33.588-36.871-2.2747-5.399-4.8796-41.344-2.5254-47.982z"
+          sodipodi:nodetypes="zzzzzzz"
+          style="stroke:#000000;stroke-width:1px;fill:#1f87dc"
+          inkscape:connector-curvature="0"
+      />
+      <g
+          id="text3117"
+          style="fill:#ffffff"
+          transform="matrix(0 1 -1 .37736 0 0)"
+        >
+        <path
+            id="path3081"
+            style="fill:#ffffff"
+            d="m778.65-600.6h14.953v4.4219h-10.156v3.6094c0.45833-0.12499 0.91666-0.21874 1.375-0.28125 0.46874-0.0729 0.95312-0.10936 1.4531-0.10938 2.8437 0.00002 5.0573 0.71356 6.6406 2.1406 1.5833 1.4167 2.375 3.3958 2.375 5.9375-0.00002 2.5208-0.8646 4.4948-2.5938 5.9219-1.7188 1.4271-4.1094 2.1406-7.1719 2.1406-1.3229 0-2.6354-0.13021-3.9375-0.39063-1.2917-0.25-2.5781-0.63541-3.8594-1.1562v-4.7344c1.2708 0.72917 2.474 1.276 3.6094 1.6406 1.1458 0.36459 2.224 0.54688 3.2344 0.54688 1.4583 0 2.6042-0.35416 3.4375-1.0625 0.84374-0.71875 1.2656-1.6875 1.2656-2.9062-0.00002-1.2292-0.42189-2.1979-1.2656-2.9062-0.83334-0.70832-1.9792-1.0625-3.4375-1.0625-0.86459 0.00001-1.7865 0.11459-2.7656 0.34375-0.97917 0.21876-2.0313 0.56251-3.1562 1.0312v-13.125"
+        />
+      </g
+      >
+      <g
+          id="text3095"
+          inkscape:transform-center-x="-2.6410722"
+          inkscape:transform-center-y="29.865829"
+          style="fill:#ffffff"
+          transform="matrix(-.044714 1.1378 -.84091 -.96578 0 0)"
+        >
+        <path
+            id="path3078"
+            style="fill:#ffffff"
+            d="m-61.312-633.28h4.0384v-11.462l-4.1453 0.85519v-3.1119l4.1215-0.85518h4.3472v14.574h4.0384v3.1594h-12.4v-3.1594"
+        />
+      </g
+      >
+      <g
+          id="text3089"
+          style="fill:#ffffff"
+          transform="matrix(-.74824 -.71292 .94482 -.43625 0 0)"
+        >
+        <path
+            id="path3084"
+            style="fill:#ffffff"
+            d="m-732.85 15.982c1.9448 0.50232 3.4195 1.3781 4.4241 2.6274 1.0175 1.2364 1.5262 2.8142 1.5262 4.7332-0.00002 2.8593-1.0948 5.0359-3.2843 6.5299-2.1895 1.4811-5.3836 2.2217-9.5823 2.2217-1.4812 0-2.9687-0.12236-4.4628-0.36706-1.4811-0.23183-2.9494-0.58602-4.4048-1.0626v-5.7378c1.391 0.6955 2.7691 1.2236 4.1343 1.5842 1.3781 0.34775 2.7304 0.52162 4.057 0.52162 1.9706 0.000004 3.4774-0.3413 4.5207-1.0239 1.0561-0.68261 1.5842-1.6614 1.5842-2.9365-0.00002-1.3137-0.54096-2.3054-1.6228-2.9752-1.069-0.6826-2.6532-1.0239-4.7525-1.0239h-2.9752v-4.7912h3.1297c1.8675 0.000017 3.2585-0.28977 4.173-0.86937 0.91443-0.59244 1.3716-1.4876 1.3717-2.6854-0.00002-1.1076-0.44436-1.9641-1.333-2.5695-0.8887-0.60531-2.1444-0.90798-3.7672-0.908-1.1978 0.0000243-2.4085 0.13526-3.632 0.4057-1.2236 0.27049-2.4407 0.66976-3.6513 1.1978v-5.448c1.4683-0.41212 2.9236-0.72122 4.3662-0.92732 1.4425-0.20604 2.8592-0.30908 4.2502-0.30911 3.7479 0.0000293 6.5492 0.61824 8.4039 1.8546 1.8675 1.2236 2.8013 3.0718 2.8013 5.5446-0.00002 1.6872-0.44437 3.0718-1.333 4.1536-0.8887 1.069-2.2024 1.8225-3.9411 2.2604"
+        />
+      </g
+      >
+      <path
+          id="path3109"
+          d="m528.81 515.47 30.81 27.779"
+          style="stroke:#ffffff;stroke-width:1px;fill:#ffffff"
+          inkscape:connector-curvature="0"
+      />
+      <path
+          id="path3111"
+          d="m609.12 526.58-44.952 17.173"
+          style="stroke:#ffffff;stroke-width:1px;fill:#ffffff"
+          inkscape:connector-curvature="0"
+      />
+      <path
+          id="path3113"
+          d="m559.62 548.8 2.0203 43.942"
+          style="stroke:#ffffff;stroke-width:1px;fill:#ffffff"
+          inkscape:connector-curvature="0"
+      />
+    </g
+    >
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >dice</dc:title
+        >
+        <dc:date
+          >2010-10-22T16:08:01</dc:date
+        >
+        <dc:description
+        />
+        <dc:source
+          >https://openclipart.org/detail/91897/dice-by-yves_guillou</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >yves_guillou</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >dice</rdf:li
+            >
+            <rdf:li
+              >game</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>
