@@ -1,0 +1,16 @@
+.grid {
+    display: grid;
+    height: min-content;
+    grid-template-columns: 190px 296px 500px
+    // grid-auto-columns: min-content
+    
+  }
+
+  .dice-selecion {
+    display: grid;
+    height: min-content;
+    width: min-content;
+    grid-template-columns: 50px 50px 50px
+    // grid-auto-columns: min-content
+    
+  }

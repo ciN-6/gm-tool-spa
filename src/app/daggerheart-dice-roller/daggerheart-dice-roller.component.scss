@@ -1,0 +1,30 @@
+.grid {
+    display: grid;
+    width: 105px;
+    grid-template-rows: 105px;
+    grid-template-columns: 240px 240px  ;
+
+    // grid-auto-columns: min-content
+    
+  }
+
+  .grid3Column{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .overlay-text {
+
+    position: absolute;
+    // top: 10%; 
+    // left: 45%; 
+    transform: translate(5%, -100%); 
+    // background-color: #000000; 
+    color: #000000; 
+    padding: 10px 20px; 
+    font-size: 25px;   
+    font-weight: 800;
+    text-align: center;
+    pointer-events: none;
+    
+  }
