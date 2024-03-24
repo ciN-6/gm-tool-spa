@@ -6,12 +6,14 @@ import { AppComponent } from './app/app.component';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app-routing.module';
+import { provideStore } from '@ngrx/store';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
-    provideRouter(routes)
-  ]
+    provideRouter(routes),
+    provideStore()
+]
 });
 
 // platformBrowserDynamic().bootstrapModule(AppModule)

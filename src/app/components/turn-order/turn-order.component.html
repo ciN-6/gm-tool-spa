@@ -1,0 +1,42 @@
+<div class="turn-order" class="flex-row" style="padding: 1em">
+
+  <form>
+    <mat-form-field style="padding: 1em">
+      <mat-label>Token pool name</mat-label>
+      <input matInput type="text" aria-label="Token pool name" placeholder="Combat Actions"
+        [formControl]="playerNameInputCtrl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (playerName of filteredOptions | async; track playerName) {
+        <mat-option [value]="playerName">{{playerName}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="ajouterPlayer()">Ajouter player</button>
+  </form>
+
+  <div style="padding: 1em">
+    <div cdkDropList id="players" class="dropGridList" cdkDropListOrientation="vertical" [cdkDropListData]="players"
+      (cdkDropListDropped)="drop($event)">
+      @for (player of players; track player) {
+      <div class="example-box" cdkDrag [cdkDragData]="player">
+        <mat-card>
+
+          <mat-card-content >
+            <div class="grid-card-content">
+              <div class="nowrap-elipse">{{player}}</div>
+              <button mat-stroked-button color="warn" (click)="enleverPlayer(player)">
+                remove
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+      } @empty {
+      <div>No Counters</div>
+      }
+    </div>
+  </div>
+
+
+</div>
