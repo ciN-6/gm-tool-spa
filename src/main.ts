@@ -7,17 +7,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app-routing.module';
 import { StoreModule, provideStore } from '@ngrx/store';
-import { importProvidersFrom } from '@angular/core';
-import { betterCounterReducer } from './app/store/reducers/better-counter.reducer';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideRouter(routes),
-    provideStore(),
-    importProvidersFrom(
-      StoreModule.forRoot({ counter:betterCounterReducer })
-    )
+    provideStore()
+    
     
 ]
 });

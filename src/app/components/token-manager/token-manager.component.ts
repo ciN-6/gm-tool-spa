@@ -7,7 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TokenCounterComponent } from '../token-counter/token-counter.component';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, Subscription, map, startWith } from 'rxjs';
+import { TokenCount } from '../../store/reducers';
+import { Store } from '@ngrx/store';
+import * as tokenSelector from '../../store/selectors/token-count.selector';
 
 @Component({
   selector: 'app-token-manager',
@@ -32,18 +35,29 @@ export class TokenManagerComponent implements OnInit {
   public tokenManagerClass:string = "token-manager";
   public tokenNameInputCtrl = new FormControl('');
   public tokenNameOptions: string[] = [];
-  public counters: string[] = [];
+  public counters: string[];
   public tokenName: string = "";
   public filteredOptions: Observable<string[]> = new Observable<string[]>();
   public showManager:boolean=true;
+  subscription = new Subscription()
 
+
+  constructor(
+    private tokenCountStore: Store<TokenCount>
+  ){
+    this.counters=[];
+    this.subscription.add(
+      this.tokenCountStore.select("")
+        .subscribe((value: any) => {
+          if (value) {
+            this.counters = Object.keys(value);
+          }
+        })
+    )
+  
+  }
 
   ngOnInit(): void {
-    this.counters.push("Fear");
-    this.counters.push("Combat");
-    this.counters.push("Health");
-    this.counters.push("Stress");
-    this.counters.push("Hope");
 
     let storage = localStorage.getItem('tokenCounterNames');
     if (storage) {

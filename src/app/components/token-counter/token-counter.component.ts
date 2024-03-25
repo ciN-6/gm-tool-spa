@@ -5,9 +5,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { addToken, decrementToken, incrementToken, removeToken } from '../../store/counter.actions';
-import { Counter, Counters } from '../../store/reducers';
-import * as selectors from '../../store/selectors/counter.selector';
+import { Counter,  TokenCount } from '../../store/reducers';
+import * as tokenSelector from '../../store/selectors/token-count.selector';
+import * as tokenAction from '../../store/actions/token-count.actions';
 
 @Component({
   selector: 'app-token-counter',
@@ -28,25 +28,27 @@ export class TokenCounterComponent implements OnDestroy, OnInit {
   removeCounterParent = new EventEmitter<string>();
 
 
-  public storedToken!:Counter;
-  constructor(private counterStore: Store<Counters>) {
+  public storedToken!: Counter;
+  constructor(
+    private tokenCountStore: Store<TokenCount>
+  ) {
   }
 
 
 
   ngOnInit(): void {
-    this.storedToken = { name: this.counterName, amount:0 };
+    this.storedToken = { name: this.counterName, amount: 0 };
 
-    console.log("token-counter -> " , this.storedToken)
-    this.counterStore.dispatch(
-      addToken(this.storedToken));
+    this.tokenCountStore.dispatch(
+      tokenAction.addToken(this.storedToken));
 
     this.subscription.add(
-      this.counterStore.select(selectors.selectTokenCounter(this.counterName))
-        .subscribe((value:Counter)=>{
-          this.storedToken = value
+      this.tokenCountStore.select(tokenSelector.newSelectTokenCounter(this.counterName))
+        .subscribe((value: any) => {
+          this.storedToken.amount = value
         })
     )
+
   }
 
   ngOnDestroy(): void {
@@ -55,15 +57,15 @@ export class TokenCounterComponent implements OnDestroy, OnInit {
 
 
   add() {
-    this.counterStore.dispatch(incrementToken(this.storedToken));
+    this.tokenCountStore.dispatch(tokenAction.incrementToken(this.storedToken));
   }
   substract() {
-    this.counterStore.dispatch(decrementToken(this.storedToken));
+    this.tokenCountStore.dispatch(tokenAction.decrementToken(this.storedToken));
 
   }
   removeCounter() {
     this.removeCounterParent.emit(this.counterName);
-    this.counterStore.dispatch(removeToken(this.storedToken));
+    this.tokenCountStore.dispatch(tokenAction.removeToken(this.storedToken));
 
   }
 
