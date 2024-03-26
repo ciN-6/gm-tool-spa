@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Die } from '../models/die';
+import { Die } from '../../models/die';
 import { MatButtonModule } from '@angular/material/button';
-import { dieType } from '../constantes/constantes';
+import { dieType } from '../../constantes/constantes';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 
@@ -44,7 +44,6 @@ export class DaggerheartDiceRollerComponent {
   public disValue: number = 0;
 
   get fearDie(): string | undefined {
-    console.log("fear")
     let i = this.dice.findIndex(die => die.type === dieType.fear);
     return this.dice[i].src;
   }

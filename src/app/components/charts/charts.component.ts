@@ -23,7 +23,6 @@ export class ChartsComponent implements OnChanges {
 
   constructor() {
     // this.data.subscribe(val => {
-    //   console.log("reshreshed")
     //   this.recalculate(val)
     // });
 

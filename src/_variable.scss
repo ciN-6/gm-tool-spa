@@ -20,3 +20,8 @@ $my-theme: mat.define-dark-theme((
 
 $primary-default: mat.get-theme-color($my-theme, primary, default);
 $header-highlight: mat.define-palette($my-gray-palette, 100);
+
+
+$pad-small: 4px;
+$pad-medium: 8px;
+$pad-large: 12px;

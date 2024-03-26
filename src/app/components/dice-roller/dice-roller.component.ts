@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ChartsComponent } from '../charts/charts.component';
 import { of } from 'rxjs';
-import { Die } from '../models/die';
+import { Die } from '../../models/die';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
