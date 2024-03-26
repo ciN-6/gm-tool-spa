@@ -10,7 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
-import { turnOrderStore } from '../../store/reducers';
+import { TurnOrderStore } from '../../store/reducers';
 import { selectTurnOrder } from '../../store/selectors/turn-order.selector';
 import { reorder } from '../../store/actions/turn-order.actions';
 
@@ -47,7 +47,7 @@ export class TurnOrderComponent implements OnInit {
   @Input()
   showManager: boolean = true;
 
-  constructor(private store: Store<turnOrderStore>) { }
+  constructor(private store: Store<TurnOrderStore>) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.playerNameInputCtrl.valueChanges.pipe(
@@ -56,7 +56,7 @@ export class TurnOrderComponent implements OnInit {
     );
 
     this.store.select(selectTurnOrder).subscribe(
-      (turnOrderStoreValue: turnOrderStore) => {
+      (turnOrderStoreValue: TurnOrderStore) => {
         if (turnOrderStoreValue)
           this.players = [...turnOrderStoreValue.turnOrder];
       }

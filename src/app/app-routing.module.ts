@@ -9,6 +9,7 @@ import { DaggerheartDiceRollerComponent } from './components/daggerheart-dice-ro
 import { provideState } from '@ngrx/store';
 import { tokenCount, tokenCountReducer } from './store/reducers/token-count.reducer';
 import { turnOrder, turnOrderReducer } from './store/reducers/turn-order.reducer';
+import { diceRoller, diceRollerReducer } from './store/reducers/dice-roller.reducer';
 
 export const routes: Routes = [
 
@@ -19,7 +20,12 @@ export const routes: Routes = [
     ]
   },
   { path: 'dual-roller', component: DaggerheartDiceRollerComponent },
-  { path: 'dice-roller', component: DiceRollerComponent },
+  {
+    path: 'dice-roller', component: DiceRollerComponent,
+    providers: [provideState(
+      { name: diceRoller, reducer: diceRollerReducer }),
+    ]
+  },
   {
     path: 'counters', component: TokenManagerComponent,
     providers: [
