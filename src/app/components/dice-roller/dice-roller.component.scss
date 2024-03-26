@@ -1,7 +1,10 @@
+@import 'variable';
+
+
 .grid {
     display: grid;
     height: min-content;
-    grid-template-columns: 190px 296px 500px
+    grid-template-columns: 190px 296px
     // grid-auto-columns: min-content
     
   }
@@ -13,4 +16,15 @@
     grid-template-columns: 50px 50px 50px
     // grid-auto-columns: min-content
     
+  }
+
+  .score-log{
+    display: grid;
+    grid-template-columns: 500px;
+    row-gap: 8px;
+  
+  }
+
+  .scoreCard {
+    max-height: 100px;
   }

@@ -1,6 +1,6 @@
 import { createReducer, createSelector, on } from '@ngrx/store';
 import * as Action from '../actions/turn-order.actions';
-import { turnOrderStore as TurnOrderStore } from '.';
+import { TurnOrderStore as TurnOrderStore } from '.';
 
 export const turnOrder = 'turnOrder';
 export const initialValue: TurnOrderStore = {turnOrder:[]};

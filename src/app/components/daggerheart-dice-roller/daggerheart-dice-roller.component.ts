@@ -4,11 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { dieType } from '../../constantes/constantes';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-
-export interface HopeDie extends Die {
-  type: string;
-}
-
+import { HopeDie } from '../../models/HopeDie';
 
 @Component({
   selector: 'app-daggerheart-dice-roller',

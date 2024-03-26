@@ -1,71 +1,77 @@
 <div class="page" style="width: 100%;">
-    <div class="grid" style="gap: 8px;">
-        <mat-card>
-            <mat-card-content style="grid-column: 1;">
+    <div class="flex-row">
+        <div class="grid" style="gap: 8px;">
+            <mat-card>
+                <mat-card-content style="grid-column: 1;">
 
-                <div class="dice-selecion">
-                    @for (die of dice; track die) {
-                    <img src="{{die.src}}" (click)="addDice(die)">
-                    }
-                </div>
-                <div class="flex-column">
-                    <h2>Modifier</h2>
-                    <div class="flex-row" style="flex-wrap: nowrap;">
-                        <button mat-stroked-button color="warn" (click)="minusOne()">-1</button>
-                        <div style="font-size: xx-large; padding-left: 7px; padding-right: 7px;">{{modifier}}</div>
-                        <button mat-stroked-button color="primary" (click)="plusOne()">+1</button>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-content>
-                <div>
-                    <div class="flex-row" style="gap: 8px; justify-content: center;">
-                        <button mat-flat-button color="primary" (click)="roll()">roll</button>
-                        <button mat-flat-button color="warn" (click)="clear()">clear</button>
-                    </div>
-                </div>
-                <div class="flex-row">
-                    <div style="padding-left: 12px; width: 240px;">
-                        @for (die of chosenDice; track die) {
-                        <img src="{{die.src}}" (click)="removeDice(die)">
+                    <div class="dice-selecion">
+                        @for (die of dice; track die) {
+                        <img src="{{die.src}}" (click)="addDice(die)">
                         }
                     </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-content>
-                <div class="flex-column">
-                    <div class="flex-row" style="font-size: xx-large;">
-                        @if (total>0) {
-                        <div>Total |</div>
-                        <div style="padding-left: 8px;" class="txt-primary">{{total}}</div>
-                        }
-                    </div>
-                    <div class="flex-row txt-darker" style="font-size: small;">
-                        @for (rolledDie of rolledDice; track $index) {
-                        <div>(d{{rolledDie.size}}) |</div>
-                        <div class="txt-primary" style="padding-left: 5px;">
-                            {{rolledDie.valueRolled}}
+                    <div class="flex-column">
+                        <h2>Modifier</h2>
+                        <div class="flex-row" style="flex-wrap: nowrap;">
+                            <button mat-stroked-button color="warn" (click)="minusOne()">-1</button>
+                            <div style="font-size: xx-large; padding-left: 7px; padding-right: 7px;">{{modifier}}</div>
+                            <button mat-stroked-button color="primary" (click)="plusOne()">+1</button>
                         </div>
-                        @if (!$last) {<div style="padding: 0 5px;"> + </div>}
-                        @if ($last) {
-                        <div class="flex-row" style="padding: 0 5px;" class="txt-accent-darker">
-                            + Mod :
-                        </div>
-
-                        <div class="txt-primary">{{modifier}}</div>
-
-                        }
-                        }
                     </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
+                </mat-card-content>
+            </mat-card>
 
+            <mat-card>
+                <mat-card-content>
+                    <div>
+                        <div class="flex-row" style="gap: 8px; justify-content: center;">
+                            <button mat-flat-button color="primary" (click)="roll()">roll</button>
+                            <button mat-flat-button color="warn" (click)="clear()">clear</button>
+                        </div>
+                    </div>
+                    <div class="flex-row">
+                        <div style="padding-left: 12px; width: 240px;">
+                            @for (die of chosenDice; track die) {
+                            <img src="{{die.src}}" (click)="removeDice(die)">
+                            }
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="score-log" style="padding-left : 12px">
+            @for (log of logs; track log) {
+            <mat-card class="scoreCard">
+                <mat-card-content>
+                    <div class="flex-column">
+                        <div class="flex-row" style="font-size: xx-large;">
+
+                            <div>Total |</div>
+                            <div style="padding-left: 8px;" class="txt-primary">{{calculateRoll(log)}}</div>
+
+                        </div>
+                        <div class="flex-row txt-darker" style="font-size: small;">
+                            @for (rolledDie of log.roll; track $index;) {
+                            <div>(d{{rolledDie.size}}) |</div>
+                            <div class="txt-primary" style="padding-left: 5px;">
+                                {{rolledDie.valueRolled}}
+                            </div>
+                            @if (!$last) {<div style="padding: 0 5px;"> + </div>}
+                            @if ($last) {
+                            <div class="flex-row" style="padding: 0 5px;" class="txt-accent-darker">
+                                + Mod :
+                            </div>
+
+                            <div class="txt-primary">{{log.modifier}}</div>
+
+                            }
+                            }
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            }
+
+
+        </div>
     </div>
 </div>
