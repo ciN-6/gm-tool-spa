@@ -13,6 +13,7 @@ import * as tokenAction from '../../store/actions/token-count.actions';
   selector: 'app-token-counter',
   standalone: true,
   templateUrl: './token-counter.component.html',
+
   styleUrl: './token-counter.component.scss',
   imports: [MatIcon, MatButtonModule, CdkDrag, MatCardModule]
 })
@@ -31,8 +32,7 @@ export class TokenCounterComponent implements OnDestroy, OnInit {
   public storedToken!: Counter;
   constructor(
     private tokenCountStore: Store<TokenCount>
-  ) {
-  }
+  ) { }
 
 
 

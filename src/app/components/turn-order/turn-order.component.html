@@ -2,8 +2,8 @@
 
   <form>
     <mat-form-field style="padding: 1em">
-      <mat-label>Token pool name</mat-label>
-      <input matInput type="text" aria-label="Token pool name" placeholder="Combat Actions"
+      <mat-label>Player name</mat-label>
+      <input matInput type="text" aria-label="player name" placeholder="name"
         [formControl]="playerNameInputCtrl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         @for (playerName of filteredOptions | async; track playerName) {

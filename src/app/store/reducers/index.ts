@@ -4,7 +4,7 @@ import {
   MetaReducer
 } from '@ngrx/store';
 
-export interface State {}
+export interface State { }
 export const reducers: ActionReducerMap<State> = {};
 export const metaReducers: MetaReducer<State>[] = isDevMode() ? [] : [];
 
@@ -17,9 +17,8 @@ export interface Counter {
   amount: number;
 }
 
-export interface TokenCount{
-  [key:string]: number
+export interface TokenCount {
+  [key: string]: number
 }
 
-
-const exampleTokenCounter:TokenCount = { fear:7, gogl: 2 }
+export interface turnOrderStore { turnOrder: string[]; }

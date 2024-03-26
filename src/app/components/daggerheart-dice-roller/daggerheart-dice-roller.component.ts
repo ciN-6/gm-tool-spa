@@ -44,7 +44,6 @@ export class DaggerheartDiceRollerComponent {
   public disValue: number = 0;
 
   get fearDie(): string | undefined {
-    console.log("fear")
     let i = this.dice.findIndex(die => die.type === dieType.fear);
     return this.dice[i].src;
   }

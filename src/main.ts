@@ -7,14 +7,14 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app-routing.module';
 import { StoreModule, provideStore } from '@ngrx/store';
+import { provideRouterStore } from '@ngrx/router-store';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideAnimations(),
     provideRouter(routes),
-    provideStore()
-    
-    
+    provideStore(),
+    provideRouterStore()
 ]
 });
 

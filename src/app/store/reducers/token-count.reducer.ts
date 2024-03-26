@@ -17,6 +17,11 @@ export const tokenCountReducer = createReducer(
 
 function addCounterAction(state: TokenCount, counter: Counter): TokenCount {
 
+
+  if (state[counter.name] > 0) {
+    return state;
+  }
+
   if (state === initialCounters) {
     let temp = { [counter.name]: counter.amount }
     return temp;
@@ -30,15 +35,8 @@ function addCounterAction(state: TokenCount, counter: Counter): TokenCount {
 }
 
 function removeAction(state: TokenCount, counter: Counter): any {
-
-  console.log("removeAction", state, counter)
-  console.log("state[counter.name]", state[counter.name])
-
-
-    let newState = {...state}
-    delete newState[counter.name];
-
-    console.log("AfterDelete: ", newState)
+  let newState = { ...state }
+  delete newState[counter.name];
   return newState;
 }
 
