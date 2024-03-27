@@ -19,7 +19,12 @@ export const routes: Routes = [
       { name: turnOrder, reducer: turnOrderReducer }),
     ]
   },
-  { path: 'dual-roller', component: DaggerheartDiceRollerComponent },
+  {
+    path: 'dual-roller', component: DaggerheartDiceRollerComponent,
+    providers: [provideState(
+      { name: diceRoller, reducer: diceRollerReducer }),
+    ]
+  },
   {
     path: 'dice-roller', component: DiceRollerComponent,
     providers: [provideState(

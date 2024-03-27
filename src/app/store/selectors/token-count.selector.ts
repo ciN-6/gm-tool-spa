@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { TokenCount } from '../reducers';
+import { TokenCount } from '..';
 
 
 

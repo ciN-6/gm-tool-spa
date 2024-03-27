@@ -1,33 +1,40 @@
-<div class="page" style="width: 100%;">
-    <div class="flex-row">
-        <div class="grid" style="gap: 8px;">
-            <mat-card>
+<div class="page">
+    <div class="reactive">
+        <div id="dice-and-rolling-cards" class="grid" style="gap: 14px;">
+            <mat-card id="dice-selector">
                 <mat-card-content style="grid-column: 1;">
-
-                    <div class="dice-selecion">
-                        @for (die of dice; track die) {
-                        <img src="{{die.src}}" (click)="addDice(die)">
-                        }
-                    </div>
                     <div class="flex-column">
-                        <h2>Modifier</h2>
+                        <div class="card-header-title">
+                            Dice & Mods
+                        </div>
                         <div class="flex-row" style="flex-wrap: nowrap;">
                             <button mat-stroked-button color="warn" (click)="minusOne()">-1</button>
                             <div style="font-size: xx-large; padding-left: 7px; padding-right: 7px;">{{modifier}}</div>
                             <button mat-stroked-button color="primary" (click)="plusOne()">+1</button>
                         </div>
                     </div>
+                    <hr>
+                    <div class="dice-selecion">
+                        @for (die of dice; track die) {
+                        <img src="{{die.src}}" (click)="addDice(die)">
+                        }
+                    </div>
+                    
                 </mat-card-content>
             </mat-card>
 
-            <mat-card>
+            <mat-card id="rolling-cards">
                 <mat-card-content>
                     <div>
-                        <div class="flex-row" style="gap: 8px; justify-content: center;">
-                            <button mat-flat-button color="primary" (click)="roll()">roll</button>
-                            <button mat-flat-button color="warn" (click)="clear()">clear</button>
+                        <div class="card-header-title">
+                            Roll card
+                        </div>
+                        <div class="flex-row" style="column-gap: 8px; justify-content: center;">
+                            <button mat-stroked-button color="primary" (click)="roll()">roll</button>
+                            <button mat-stroked-button color="warn" (click)="clearDice()">clear dice</button>
                         </div>
                     </div>
+                    <hr>
                     <div class="flex-row">
                         <div style="padding-left: 12px; width: 240px;">
                             @for (die of chosenDice; track die) {
@@ -38,40 +45,83 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <div class="score-log" style="padding-left : 12px">
-            @for (log of logs; track log) {
-            <mat-card class="scoreCard">
-                <mat-card-content>
-                    <div class="flex-column">
-                        <div class="flex-row" style="font-size: xx-large;">
+        <div>
+            <div class="score-log">
 
-                            <div>Total |</div>
-                            <div style="padding-left: 8px;" class="txt-primary">{{calculateRoll(log)}}</div>
-
-                        </div>
-                        <div class="flex-row txt-darker" style="font-size: small;">
-                            @for (rolledDie of log.roll; track $index;) {
-                            <div>(d{{rolledDie.size}}) |</div>
-                            <div class="txt-primary" style="padding-left: 5px;">
-                                {{rolledDie.valueRolled}}
+                <mat-card class="header-score-card">
+                    <mat-card-content>
+                        <div style="padding-bottom: 4px;">
+                            <div class="card-header-title" style="justify-content: flex-start;">
+                                Last Rolled
                             </div>
-                            @if (!$last) {<div style="padding: 0 5px;"> + </div>}
-                            @if ($last) {
-                            <div class="flex-row" style="padding: 0 5px;" class="txt-accent-darker">
-                                + Mod :
+                            <div>
+                                <button mat-stroked-button color="warn" (click)="clearLogs()">clear logs</button>
                             </div>
-
-                            <div class="txt-primary">{{log.modifier}}</div>
-
-                            }
-                            }
                         </div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-            }
+                        <hr>
+                        <div class="flex-column">
+                            <div class="flex-row" style="font-size: xx-large;">
+                                @if (total>0) {
+                                <div>Total |</div>
+                                <div style="padding-left: 8px;" class="txt-accent">{{total}}</div>
+                                }
+                            </div>
+                            <div class="flex-row txt-darker" style="font-size: small;">
+                                @for (rolledDie of rolledDice ; track $index) {
+
+                                <div>(d{{rolledDie.size}}) |</div>
+                                <div class="txt-primary" style="padding-left: 5px;">
+                                    {{rolledDie.valueRolled}}
+                                </div>
+                                @if (!$last) {<div style="padding: 0 5px;"> + </div>}
+                                @if ($last) {
+                                <div class="flex-row" style="padding: 0 5px;" class="txt-accent-darker">
+                                    + Mod :
+                                </div>
+
+                                <div class="txt-primary">{{modifier}}</div>
+
+                                }
+                                }
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+
+                @for (log of logs.slice().reverse() | slice:1; track log) {
+                <mat-card class="scoreCard">
+                    <mat-card-content class="scoreCard">
+                        <div class="flex-column">
+                            <div class="flex-row" style="font-size: xx-large;">
+
+                                <div>Total |</div>
+                                <div style="padding-left: 8px;" >{{calculateRoll(log)}}</div>
+
+                            </div>
+                            <div class="flex-row txt-darker" style="font-size: small;">
+                                @for (rolledDie of log.roll; track $index;) {
+                                <div>(d{{rolledDie.size}}) |</div>
+                                <div  style="padding-left: 5px;">
+                                    {{rolledDie.valueRolled}}
+                                </div>
+                                @if (!$last) {<div style="padding: 0 5px;"> + </div>}
+                                @if ($last) {
+                                <div class="flex-row" style="padding: 0 5px;" class="txt-accent-darker">
+                                    + Mod :
+                                </div>
+
+                                <div >{{log.modifier}}</div>
+
+                                }
+                                }
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                }
 
 
+            </div>
         </div>
     </div>
 </div>

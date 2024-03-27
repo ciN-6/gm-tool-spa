@@ -10,7 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
-import { TurnOrderStore } from '../../store/reducers';
+import { TurnOrderStore } from '../../store';
 import { selectTurnOrder } from '../../store/selectors/turn-order.selector';
 import { reorder } from '../../store/actions/turn-order.actions';
 

@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TokenCounterComponent } from '../token-counter/token-counter.component';
 import { Observable, Subscription, map, startWith } from 'rxjs';
-import { TokenCount } from '../../store/reducers';
+import { TokenCount } from '../../store';
 import { Store } from '@ngrx/store';
 import * as tokenSelector from '../../store/selectors/token-count.selector';
 

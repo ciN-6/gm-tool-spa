@@ -1,18 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ChartsComponent } from '../charts/charts.component';
 import { Subscription, of } from 'rxjs';
 import { Die } from '../../models/die';
 import { MatCardModule } from '@angular/material/card';
-import { DiceRoll, DiceRollerStore } from '../../store/reducers';
+import { DiceRoll, DiceRollerStore } from '../../store';
 import { Store } from '@ngrx/store';
-import { logDiceRoll } from '../../store/actions/dice-roller.actions';
+import { clearDiceLog, logDiceRoll } from '../../store/actions/dice-roller.actions';
 import { selectDiceRoll } from '../../store/selectors/dice-roller.selector';
 
 @Component({
   selector: 'app-dice-roller',
   standalone: true,
-  imports: [MatButtonModule, ChartsComponent, MatCardModule],
+  imports: [CommonModule, MatButtonModule, ChartsComponent, MatCardModule],
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss'
 })
@@ -51,24 +52,26 @@ export class DiceRollerComponent implements OnInit {
   }
 
   /**
-   * Public Stuff
+   * CARD : dice-selector
    */
 
   public addDice(dieToAdd: Die) {
     this.chosenDice.push(dieToAdd);
   }
-  public clear() {
-    this.chosenDice = [];
-    this.total = 0;
-    this.rolledDice = [];
+
+  public plusOne() {
+    this.modifier++;
+    this.total++;
+  }
+  public minusOne() {
+    this.modifier--;
+    this.total--;
   }
 
-  public removeDice(dieToRemove: Die) {
-    const index = this.chosenDice.indexOf(dieToRemove);
-    if (index > -1) { // only splice array when item is found
-      this.chosenDice.splice(index, 1); // 2nd parameter means remove one item only
-    }
-  }
+
+  /**
+  * CARD : rolling-cards
+  */
 
   public roll() {
 
@@ -95,34 +98,28 @@ export class DiceRollerComponent implements OnInit {
     return die.modifier + die.roll.reduce((accumulator, currentValue) => {
       let currentRolledValue = currentValue.valueRolled ? currentValue.valueRolled : 0;
       return accumulator + currentRolledValue
-    },0);
+    }, 0);
   }
 
-
-  public plusOne() {
-    this.modifier++;
-    this.total++;
-  }
-  public minusOne() {
-    this.modifier--;
-    this.total--;
+  public clearDice() {
+    this.chosenDice = [];
+    this.total = 0;
+    this.rolledDice = [];
   }
 
-  public diceTester(die: Die) {
-    // let die:Die = {src:"",type:20}
-
-    let data = [];
-    for (let i = 1; i <= die.size; i++) {
-      data.push({ value: i, timeRolled: 0 })
-    }
-
-    for (let i = 1; i <= 10000; i++) {
-      let valueRolled = this.rollOneDie(die);
-      let idx = data.findIndex(x => x.value === valueRolled);
-      data[idx].timeRolled = data[idx].timeRolled + 1;
-      this.chartData = of(data);
+  public removeDice(dieToRemove: Die) {
+    const index = this.chosenDice.indexOf(dieToRemove);
+    if (index > -1) { // only splice array when item is found
+      this.chosenDice.splice(index, 1); // 2nd parameter means remove one item only
     }
   }
+
+  public clearLogs(){
+    this.logs=[];
+    this.store.dispatch(clearDiceLog());
+  }
+
+
 
   /**
    * Private stuff

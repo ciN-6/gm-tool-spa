@@ -16,44 +16,63 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.flex-column{
+.flex-column {
     display: flex;
     flex-direction: column;
 }
-.flex-row{
+
+.flex-row {
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
     flex-wrap: wrap;
     padding: 0 5px 5px 0;
 }
 
-.txt-primary{
-    color:mat.get-color-from-palette($my-primary, 200);
+.txt-primary {
+    color: mat.get-color-from-palette($my-primary, 200);
 }
-.txt-red{
-    color:mat.get-color-from-palette($my-warn, 600);
+
+.txt-red {
+    color: mat.get-color-from-palette($my-warn, 600);
 }
-.txt-green{
-    color:mat.get-color-from-palette($green-palette, 600);
+
+.txt-green {
+    color: mat.get-color-from-palette($green-palette, 600);
 }
-.txt-accent{
-    color:mat.get-color-from-palette($my-accent,200);
+
+.txt-accent {
+    color: mat.get-color-from-palette($my-accent, 200);
 }
-.txt-fear{
-    color:mat.get-color-from-palette($fear-palette,200);
+
+.txt-fear {
+    color: mat.get-color-from-palette($fear-palette, 200);
 }
-.txt-accent-darker{
-    color:mat.get-color-from-palette($my-accent, 900);
+
+.txt-accent-darker {
+    color: mat.get-color-from-palette($my-accent, 900);
 }
-.txt-darker{
-    color:mat.get-color-from-palette($my-gray-palette, 600);
+
+.txt-darker {
+    color: mat.get-color-from-palette($my-gray-palette, 600);
 }
-.page{
+
+.page {
     padding: 2em;
 }
-img{
-    width:48px;
-    height:48px;
+
+img {
+    width: 48px;
+    height: 48px;
     padding: 8px 0 0 8px;
 }
 
+::ng-deep .mat-dialog-container {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), mat.get-color-from-palette($my-accent, 200), rgba(0, 0, 0, 0));
+}

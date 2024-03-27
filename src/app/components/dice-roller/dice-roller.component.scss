@@ -1,30 +1,67 @@
+@use '@angular/material' as mat;
 @import 'variable';
+
+.reactive {
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 1050px) {
+    flex-direction: column;
+    row-gap: 8px;
+    transition-duration: 1s;
+  }
+}
 
 
 .grid {
-    display: grid;
-    height: min-content;
-    grid-template-columns: 190px 296px
-    // grid-auto-columns: min-content
-    
-  }
+  display: grid;
+  height: 269px;
+  grid-template-columns: 190px 296px;
 
-  .dice-selecion {
-    display: grid;
-    height: min-content;
-    width: min-content;
-    grid-template-columns: 50px 50px 50px
-    // grid-auto-columns: min-content
-    
-  }
+}
 
-  .score-log{
-    display: grid;
-    grid-template-columns: 500px;
-    row-gap: 8px;
-  
-  }
+.dice-selecion {
+  display: grid;
+  height: min-content;
+  width: min-content;
+  grid-template-columns: 50px 50px 50px;
 
-  .scoreCard {
-    max-height: 100px;
+}
+
+.score-log {
+  display: grid;
+  grid-template-columns: 500px;
+  row-gap: 8px;
+  padding-left: 0px;
+
+  @media screen and (min-width: 1050px) {
+    padding-left: 12px;
   }
+}
+
+.fade .scoreCard {
+  transition: all 0.6s ease-out;
+  opacity: 0;
+  max-height: 100px;
+}
+
+.scoreCard {
+  transition: all 0.6s ease-out;
+  opacity: 1;
+  max-height: 100px;
+  color: mat.get-color-from-palette(mat.$grey-palette, 500);
+}
+
+
+.header-score-card {
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 900);
+  margin-bottom: $pad-large;
+}
+
+.card-header-title {
+  font-size: x-large;
+  justify-content: center;
+  display: flex;
+  padding-bottom: $pad-medium;
+  color: $accent-lignt;
+}

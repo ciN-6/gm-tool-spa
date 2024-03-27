@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Counter,  TokenCount } from '../../store/reducers';
+import { Counter,  TokenCount } from '../../store';
 import * as tokenSelector from '../../store/selectors/token-count.selector';
 import * as tokenAction from '../../store/actions/token-count.actions';
 

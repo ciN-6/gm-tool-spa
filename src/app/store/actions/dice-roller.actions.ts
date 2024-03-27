@@ -11,6 +11,10 @@ export const logDiceRoll = createAction(
         }
     }>());
 
+export const clearDiceLog = createAction(
+    '[dice-roller] clear dice log');
+
+
 export const logHopeDiceRoll = createAction(
     '[dice-roller] hope dice log',
     props<{

@@ -1,6 +1,6 @@
 import { createReducer, createSelector, on } from '@ngrx/store';
 import * as Action from '../actions/token-count.actions';
-import { Counter, TokenCount } from '.';
+import { Counter, TokenCount } from '..';
 
 export const tokenCount = 'tokenCount';
 export const initialCounters: TokenCount = {};

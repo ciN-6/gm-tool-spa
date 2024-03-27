@@ -3,8 +3,8 @@ import {
   ActionReducerMap,
   MetaReducer
 } from '@ngrx/store';
-import { Die } from '../../models/die';
-import { HopeDie } from '../../models/HopeDie';
+import { Die } from '../models/die';
+import { HopeDie } from '../models/HopeDie';
 
 export interface State { }
 export const reducers: ActionReducerMap<State> = {};
