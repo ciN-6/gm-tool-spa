@@ -62,10 +62,16 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "local": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -76,8 +82,8 @@
             "production": {
               "buildTarget": "gm-tool:build:production"
             },
-            "development": {
-              "buildTarget": "gm-tool:build:development"
+            "local": {
+              "buildTarget": "gm-tool:build:local"
             }
           },
           "defaultConfiguration": "development"

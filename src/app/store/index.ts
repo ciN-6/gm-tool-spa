@@ -5,6 +5,7 @@ import {
 } from '@ngrx/store';
 import { Die } from '../models/die';
 import { HopeDie } from '../models/HopeDie';
+import { TurnOrderCharacter } from '../models/TurnOrderCharacter';
 
 export interface State { }
 export const reducers: ActionReducerMap<State> = {};
@@ -29,7 +30,17 @@ export interface TokenCount {
 /**
  * Turn Order Store
  */
-export interface TurnOrderStore { turnOrder: string[]; }
+export interface TurnOrderStore 
+{ 
+  order?: string[];
+  filteredPlayerList?: string[];
+}
+
+export interface CharacterStore 
+{ 
+  characterOrder: TurnOrderCharacter[];
+  filteredPlayerList: TurnOrderCharacter[];
+}
 
 
 /**

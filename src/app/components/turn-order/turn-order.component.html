@@ -1,30 +1,33 @@
 <div class="turn-order" class="flex-row" style="padding: 1em">
 
-  <form>
+  <form [formGroup]="turnOrderForm" (ngSubmit)="ajouterPlayer()">
     <mat-form-field style="padding: 1em">
       <mat-label>Player name</mat-label>
       <input matInput type="text" aria-label="player name" placeholder="name"
-        [formControl]="playerNameInputCtrl" [matAutocomplete]="auto">
+      formControlName="characterName" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
-        @for (playerName of filteredOptions | async; track playerName) {
+        @for (playerName of filteredOptionsObs | async; track playerName) {
         <mat-option [value]="playerName">{{playerName}}</mat-option>
         }
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-stroked-button color="primary" (click)="ajouterPlayer()">Ajouter player</button>
+    <mat-checkbox formControlName="isAdversary">Adversary</mat-checkbox>
+    <button mat-stroked-button color="primary">Ajouter player</button>
   </form>
 
   <div style="padding: 1em">
-    <div cdkDropList id="players" class="dropGridList" cdkDropListOrientation="vertical" [cdkDropListData]="players"
+    <div cdkDropList id="players" class="dropGridList" cdkDropListOrientation="vertical" [cdkDropListData]="characters"
       (cdkDropListDropped)="drop($event)">
-      @for (player of players; track player) {
-      <div class="example-box" cdkDrag [cdkDragData]="player">
+      @for (character of characters; track character) {
+      <div class="example-box" cdkDrag [cdkDragData]="character">
         <mat-card>
 
           <mat-card-content >
             <div class="grid-card-content">
-              <div class="nowrap-elipse">{{player}}</div>
-              <button mat-stroked-button color="warn" (click)="enleverPlayer(player)">
+              <div [class]="calculateClass(character)">
+                {{character.charcterName}}
+              </div>
+              <button mat-stroked-button color="warn" type="submit" (click)="enleverPlayer(character)">
                 remove
               </button>
             </div>
