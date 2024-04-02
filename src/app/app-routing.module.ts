@@ -8,7 +8,7 @@ import { DiceRollerComponent } from './components/dice-roller/dice-roller.compon
 import { DaggerheartDiceRollerComponent } from './components/daggerheart-dice-roller/daggerheart-dice-roller.component';
 import { provideState } from '@ngrx/store';
 import { tokenCount, tokenCountReducer } from './store/reducers/token-count.reducer';
-import { turnOrder, turnOrderReducer } from './store/reducers/turn-order.reducer';
+import { characterStoreKey, turnOrderReducer } from './store/reducers/turn-order.reducer';
 import { diceRoller, diceRollerReducer } from './store/reducers/dice-roller.reducer';
 
 export const routes: Routes = [
@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'player-turn-order', component: TurnOrderComponent,
     providers: [provideState(
-      { name: turnOrder, reducer: turnOrderReducer }),
+      { name: characterStoreKey, reducer: turnOrderReducer }),
     ]
   },
   {
@@ -39,7 +39,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'charts', component: ChartsComponent },
-  { path: '**', component: LandingPageComponent }
+  { path: '**', component: TurnOrderComponent }
 ];
 
 @NgModule({

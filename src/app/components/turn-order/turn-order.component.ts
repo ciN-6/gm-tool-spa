@@ -12,9 +12,10 @@ import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, map, startWith } from 'rxjs';
 import { TurnOrderCharacter } from '../../models/TurnOrderCharacter';
-import { CharacterStore } from '../../store';
+import { CharacterStore } from '../../store/actions/turn-order.actions';
 import * as storeReducer from '../../store/actions/turn-order.actions';
 import { selectFilteredPlayerList, selectTurnOrder } from '../../store/selectors/turn-order.selector';
+import { MonsterCardComponent } from '../monster-card/monster-card.component';
 
 @Component({
   selector: 'app-turn-order',
@@ -33,13 +34,14 @@ import { selectFilteredPlayerList, selectTurnOrder } from '../../store/selectors
     MatFormFieldModule,
     MatIcon,
     MatInputModule,
+    MonsterCardComponent,
     ReactiveFormsModule]
 })
 export class TurnOrderComponent implements OnInit, OnDestroy {
 
   @HostListener('window:beforeunload')
   public beforeunload(): void {
-    let strCharacterList = JSON.stringify(this.filteredPlayerNames);
+    const strCharacterList = JSON.stringify(this.filteredPlayerNames);
     if (strCharacterList)
       localStorage.setItem('playerName', strCharacterList);
     else {
@@ -51,16 +53,17 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
   public characters!: TurnOrderCharacter[];
   public filteredOptionsObs: Observable<string[]> = new Observable<string[]>();
 
+  public lastCharacterClicked: string = 'Adult brass Dragon';
+
 
 
   private sub: Subscription = new Subscription();
-  @Input()
-  showManager: boolean = true;
+  @Input() showManager: boolean = true;
 
   turnOrderForm = this.formBuilder.group({
     characterName: new FormControl(''),
     isAdversary: new FormControl(false)
-  })
+  });
 
   constructor(
     private store: Store<CharacterStore>,
@@ -88,11 +91,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
       );
   }
 
-  public calculateClass(character:TurnOrderCharacter){
+  public calculateClass(character: TurnOrderCharacter) {
     if (character.isAdversary) {
-      return "nowrap-elipse-advesary"
+      return 'nowrap-elipse-advesary';
     }
-    return "nowrap-elipse"
+    return 'nowrap-elipse';
   }
 
   public ajouterPlayer() {
@@ -105,21 +108,21 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.characters) {
-      this.characters = []
+      this.characters = [];
     }
     let newOrder: TurnOrderCharacter[] = [];
-    let character = {
-      charcterName: this.turnOrderForm.value.characterName || "",
+    const character = {
+      charcterName: this.turnOrderForm.value.characterName || '',
       isAdversary: this.turnOrderForm.value.isAdversary || false
     };
 
-    newOrder = [...this.characters, character]
+    newOrder = [...this.characters, character];
 
-    if (this.turnOrderForm.value.characterName !== "" &&
+    if (this.turnOrderForm.value.characterName !== '' &&
       !this.filteredPlayerNames?.map(item => item.charcterName).includes(character.charcterName)) {
       this.store.dispatch(storeReducer.addFilteredCharacter(character));
     }
-    this.store.dispatch(storeReducer.reorderCharacter({ order: newOrder }))
+    this.store.dispatch(storeReducer.reorderCharacter({ characters: newOrder }));
     this.turnOrderForm.reset();
   }
 
@@ -128,7 +131,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     if (idx > -1) {
       this.characters.splice(idx, 1);
     }
-    this.store.dispatch(storeReducer.reorderCharacter({ order: this.characters }))
+    this.store.dispatch(storeReducer.reorderCharacter({ characters: this.characters }));
+  }
+
+  public setLastClicked(charcterName: string) {
+    this.lastCharacterClicked = charcterName;
   }
 
   private _filter(value: string): string[] {
@@ -145,11 +152,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
 
   public drop(event: CdkDragDrop<TurnOrderCharacter[]>) {
     moveItemInArray(this.characters, event.previousIndex, event.currentIndex);
-    this.store.dispatch(storeReducer.reorderCharacter({ order: this.characters }))
+    this.store.dispatch(storeReducer.reorderCharacter({ characters: this.characters }));
   }
 
   private loadFromLocalStore() {
-    let coldStorage = localStorage.getItem('playerName');
+    const coldStorage = localStorage.getItem('playerName');
     if (coldStorage) {
       this.filteredPlayerNames = JSON.parse(coldStorage);
     } else {
@@ -167,8 +174,9 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
   }
 
   private subscribeTurnOrder() {
+
     this.sub.add(this.store.select(selectTurnOrder).subscribe(
-      (order: any) => {
+      (order) => {
         if (order)
           this.characters = [...order];
       }
@@ -184,7 +192,6 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
       }
     ));
   }
-
 
 }
 

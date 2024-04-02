@@ -1,86 +1,95 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createReducer, on } from '@ngrx/store';
 import * as Action from '../actions/turn-order.actions';
-import { CharacterStore, TurnOrderStore as TurnOrderStore } from '..';
+import { CharacterStore } from '../actions/turn-order.actions';
 import { TurnOrderCharacter } from '../../models/TurnOrderCharacter';
-import { TypedAction } from '@ngrx/store/src/models';
+import { Monster } from '../../services/srb-model/models/monster/types';
+import * as util from '../../util/util';
+import { TurnOrderCharactersTypeAction } from '../actions/turn-order.actions';
 
-export const turnOrder = 'turnOrder';
-export const initialValue: TurnOrderStore = { order: [], filteredPlayerList: [] };
+export const characterStoreKey = 'characterStore';
 
-export const initialValue2: CharacterStore = { 
-  filteredPlayerList:[],
-  characterOrder:[]
- };
+export const initialValue: CharacterStore = {
+  filteredPlayerList: [],
+  characterOrder: []
+};
 
 export const turnOrderReducer = createReducer(
-  initialValue2,
-  // on(Action.reorder, (state, tokenCounter) => reorder(state, tokenCounter)),
-  // on(Action.addFilteredPlayer, (state, playerName) => addFilteredPlayer(state, playerName)),
-  // on(Action.setFliteredPlayerList, (state, playerList) => setFilteredPlayerList(state, playerList)),
-  
-  // newstuff
-
+  initialValue,
   on(Action.reorderCharacter, (state, characterList) => reorderCharacter(state, characterList)),
   on(Action.addFilteredCharacter, (state, playerList) => addFilteredCharacter(state, playerList)),
-  on(Action.setFliteredCharacterList, (state, playerList) => setFilteredPlayerList(state, playerList))
-
+  on(Action.setFliteredCharacterList, (state, playerList) => setFilteredPlayerList(state, playerList)),
+  on(Action.setMonster, (state, monster) => setMonster(state, monster)),
+  on(Action.setMonster, (state, monster) => setCurrentMonster(state, monster))
 );
 
 
+function setCurrentMonster(state: CharacterStore, monster: { monster: Monster } & any) {
 
-function reorderCharacter(state: CharacterStore, newCharacterOrder: TurnOrderCharacter[]|any) {
-  let newState:CharacterStore = { 
+  let newState: CharacterStore = {
     ...state,
-    characterOrder:newCharacterOrder.order
-   }
+    currentCharacter: monster.monster
+  };
+  // console.log("setCurrentMonster\nstate", state,
+  //   "\nmonster", monster,
+  //   "\nnewState", newState)
   return newState;
 }
 
-function addFilteredCharacter(state: CharacterStore, character: TurnOrderCharacter|any) {
+function setMonster(state: CharacterStore, monster: { monster: Monster } & any) {
 
-  let newFilteredList: TurnOrderCharacter[] = [...state.filteredPlayerList]
-  newFilteredList.push(character);
-  let newState: CharacterStore = {
+  // console.log("setMonster\nstate", state,
+  //   "\nmonster", monster)
+
+  if (!monster)
+    return state;
+  let character: TurnOrderCharacter | undefined;
+  let characters: TurnOrderCharacter[] = JSON.parse(JSON.stringify(state.characterOrder));
+  if (characters.length > 0) {
+    character = characters.find((char: TurnOrderCharacter) =>
+      util.transformIntoKey(char.charcterName) === util.transformIntoKey(monster.monster.name)
+    );
+    if (character && !character.stat) {
+      character.stat = monster.monster;
+    }
+  } else {
+    characters = [{ charcterName: monster.monster.name, isAdversary: true, stat: monster.monster }]
+  }
+
+  const newState: CharacterStore = {
+    ...state,
+    characterOrder: characters
+  };
+
+  // console.log("setMonster\nstate", state,
+  //   "\nmonster", monster,
+  //   "\nnewState", newState)ngng
+  return newState;
+}
+
+function reorderCharacter(state: CharacterStore, newCharacterOrder: TurnOrderCharactersTypeAction) {
+
+  const newState: CharacterStore = {
+    ...state,
+    characterOrder: newCharacterOrder.characters
+  };
+  return newState;
+}
+
+function addFilteredCharacter(state: CharacterStore, character: TurnOrderCharacter) {
+  const newFilteredList: TurnOrderCharacter[] = [...state.filteredPlayerList];
+  if (character.charcterName !== undefined) {
+    newFilteredList.push(character);
+  }
+  const newState: CharacterStore = {
     ...state,
     filteredPlayerList: newFilteredList
   };
-
   return newState;
 }
 
-function setFilteredPlayerList(state: CharacterStore, characterList: TurnOrderCharacter[]|any) {
-  let newState:CharacterStore = { ...state, filteredPlayerList: characterList.characters };
+function setFilteredPlayerList(state: CharacterStore, characterList: TurnOrderCharactersTypeAction) {
+  const newState: CharacterStore = { ...state, filteredPlayerList: characterList.characters };
   return newState;
 }
 
-
-
-
-
-
-
-
-//OLD>>
-// function reorder(state: TurnOrderStore, newTurnOrder: any) {
-
-//   let newState = { ...state, order: newTurnOrder.order }
-//   return newState;
-// }
-
-// function addFilteredPlayer(state: TurnOrderStore, list: any) {
-
-//   let newFilteredList: string[] = JSON.parse(JSON.stringify(state.filteredPlayerList));
-//   newFilteredList.push(list.playerName);
-//   let newState: TurnOrderStore = {
-//     ...state,
-//     filteredPlayerList: newFilteredList
-//   };
-
-//   return newState;
-// }
-
-// function setFilteredPlayerList(state: TurnOrderStore, list: any) {
-//   let newState = { ...state, filteredPlayerList: list.playerNames };
-//   return newState;
-// }
-//<<OLD

@@ -1,0 +1,11 @@
+@import 'variable';
+
+.header{
+    display: flex;
+    flex-direction: row;
+    column-gap: $pad-medium;
+}
+
+.condition{
+    flex-direction: column;
+}

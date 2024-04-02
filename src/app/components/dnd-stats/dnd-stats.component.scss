@@ -1,0 +1,15 @@
+.item {
+    display: flex;
+    justify-content: center;
+}
+.small {
+    font-size: small;
+}
+
+
+.all-item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    column-gap: 4px;
+}

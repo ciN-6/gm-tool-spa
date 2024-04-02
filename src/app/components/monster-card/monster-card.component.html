@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-content>
+  @if (monster) {
+
+    <!-- <button mat-stroked-button (click)="log()">bouton</button> -->
+    <div class="flex-row">
+      <div class="flex-column">
+        <div class="header">
+          <div class="header-first-column">
+            <div>Name</div>
+            <div>{{monster.name}}</div>
+            <div>{{monster.size}}</div>
+          </div>
+          <div>
+            <div>AC</div>
+            <div>{{monster.armor_class[0].value}}</div>
+          </div>
+        </div>
+        <div style="padding-top: 8px;">
+          <app-dnd-stats [monster]="monster"></app-dnd-stats>
+        </div>
+      </div>
+
+      <!-- Toujour a la fin -->
+      <div class="condition">
+        @for (condition of conditions; track $index) {
+        <div>
+          <mat-checkbox>{{condition.name}}</mat-checkbox>
+        </div>
+        }
+
+      </div>
+    </div>
+  }
+  </mat-card-content>
+</mat-card>
