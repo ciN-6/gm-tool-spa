@@ -1,24 +1,103 @@
 <mat-card>
   <mat-card-content>
-  @if (monster) {
+    @if (monster) {
 
     <!-- <button mat-stroked-button (click)="log()">bouton</button> -->
     <div class="flex-row">
       <div class="flex-column">
         <div class="header">
           <div class="header-first-column">
-            <div>Name</div>
-            <div>{{monster.name}}</div>
+            <div class="monster-name">{{monster.name}}</div>
             <div>{{monster.size}}</div>
           </div>
           <div>
-            <div>AC</div>
+            <div class="h2">Health</div>
+            <div>{{monster.hit_points}}</div>
+          </div>
+          <div>
+            <div class="h2">AC</div>
             <div>{{monster.armor_class[0].value}}</div>
           </div>
         </div>
-        <div style="padding-top: 8px;">
+        <div>
+          <div class="h2">Statistics</div>
           <app-dnd-stats [monster]="monster"></app-dnd-stats>
         </div>
+        <div class="proficiencies">
+          <div class="h2">Proficiencies</div>
+          <div class="grid-section">
+            @for (proficiency of monster.proficiencies; track $index) {
+            <div>
+              {{proficiency.proficiency.name}} : {{proficiency.value}}
+            </div>
+            }
+          </div>
+        </div>
+        <div class="special-ability">
+          @for (ability of monster.special_abilities; track $index) {
+          <div class="h2">
+            {{ability.name}}
+          </div>
+          <div>
+            {{ability.desc}}
+          </div>
+          }
+        </div>
+
+        @if( monster.damage_vulnerabilities.length>0){
+        <div class="special-ability">
+          <div class="h2">
+            Vulnerability
+          </div>
+          @for (vulnerability of monster.damage_vulnerabilities; track $index) {
+
+          <div>
+            {{vulnerability}}
+          </div>
+          }
+        </div>
+        }
+
+        @if( monster.damage_resistances.length>0){
+        <div class="special-ability">
+          <div class="h2">
+            Resistances
+          </div>
+          @for (resistances of monster.damage_resistances; track $index) {
+
+          <div>
+            {{resistances}}
+          </div>
+          }
+        </div>
+        }
+        @if( monster.damage_immunities.length>0){
+        <div class="special-ability">
+          <div class="h2">
+            Immunities
+          </div>
+          @for (immunities of monster.damage_immunities; track $index) {
+
+          <div>
+            {{immunities}}
+          </div>
+          }
+        </div>
+        }
+
+        @if( monster.condition_immunities.length>0){
+        <div class="special-ability">
+          <div class="h2">
+            Condition Immunities
+          </div>
+          @for (immunities of monster.condition_immunities; track $index) {
+          <div>
+            {{immunities.name}}
+          </div>
+          }
+        </div>
+        }
+
       </div>
 
       <!-- Toujour a la fin -->
@@ -31,6 +110,6 @@
 
       </div>
     </div>
-  }
+    }
   </mat-card-content>
 </mat-card>

@@ -18,10 +18,10 @@ $my-theme: mat.define-dark-theme((
  density: 2,
 ));
 
-$primary-default: mat.get-theme-color($my-theme, primary, default);
-$header-highlight: mat.define-palette($my-gray-palette, 100);
-$accent-lignt: mat.get-color-from-palette($my-accent, 200);
-$warn: mat.get-color-from-palette($my-warn, 300);
+$color-primary: mat.get-theme-color($my-theme, primary, default);
+$color-highlight: mat.define-palette($my-gray-palette, 100);
+$color-accent: mat.get-color-from-palette($my-accent, 200);
+$color-warn: mat.get-color-from-palette($my-warn, 300);
 
 $pad-small: 4px;
 $pad-medium: 8px;

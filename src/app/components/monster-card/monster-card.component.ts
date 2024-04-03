@@ -42,6 +42,7 @@ export class MonsterCardComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
+    console.log("I got destroyed.")
     this.subs.unsubscribe();
   }
 
@@ -57,21 +58,7 @@ export class MonsterCardComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-
-  private getMonsterSpecific(newMonsterName: string): void {
-    // console.log('getMonsterSpecific', newMonsterName)
-    // if (newMonsterName)
-    //   this.store.dispatch(actions.getMonster({ name: newMonsterName }));
-  }
-
   private getMonster(): void {
     this.store.dispatch(actions.getMonster({ name: this.monsterName }));
-    // this.subs.add(this.srbApi.getMonster(this.monsterName).subscribe({
-    //   next: (val) => {
-    //     this.monster = val;
-    //     this.store.dispatch(actions.setMonster(val));
-    //   },
-    //   error: (error) => console.log(this.monsterName, 'not found.', error)
-    // }));
   }
 }

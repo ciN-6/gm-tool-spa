@@ -39,7 +39,12 @@ export const routes: Routes = [
     ]
   },
   { path: 'charts', component: ChartsComponent },
-  { path: '**', component: TurnOrderComponent }
+  {
+    path: '**', component: TurnOrderComponent,
+    providers: [provideState(
+      { name: characterStoreKey, reducer: turnOrderReducer }),
+    ]
+  }
 ];
 
 @NgModule({

@@ -18,7 +18,7 @@
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: $primary-default;
+  color: $color-primary;
 }
 .nowrap-elipse-advesary{
   padding-left: $pad-large;
@@ -27,7 +27,7 @@
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: $warn;
+  color: $color-warn;
 }
 .mat-mdc-card-content:last-child {
   padding: 0;
@@ -63,7 +63,7 @@
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
-  color: $primary-default;
+  color: $color-primary;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
     0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 2px rgba(0, 0, 0, 0.12);

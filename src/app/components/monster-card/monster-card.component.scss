@@ -9,3 +9,31 @@
 .condition{
     flex-direction: column;
 }
+
+.section {
+    padding-top: $pad-medium;
+}
+
+.h2{
+    padding-top: $pad-medium;
+    color: $color-primary;
+    font-size: large;
+}
+
+.grid-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.monster-name{
+    color: $color-warn;
+    font-size: x-large;
+}
+
+.primary{
+    color: $color-primary;
+}
+
+.header{
+    column-gap: $pad-xlarge;
+}
