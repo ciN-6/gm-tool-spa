@@ -185,7 +185,7 @@ export type Monster = {
   speed: Speed;
   strength: number;
   subtype?: string;
-  // type: string;
+  type: string;
   url: string;
   wisdom: number;
   xp: number;

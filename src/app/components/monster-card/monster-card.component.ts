@@ -10,14 +10,16 @@ import { Subscription } from 'rxjs';
 import * as actions from '../../store/actions/turn-order.actions';
 import * as selector from '../../store/selectors/turn-order.selector';
 import { MatButtonModule } from '@angular/material/button';
-import { DndStatsComponent } from '../dnd-stats/dnd-stats.component';
+import { CharacterAbilityScore } from '../character-sheet/character-ability-scores/character-ability-scores.component';
+import { CharacterCardSimpleListSectionComponent } from '../character-sheet/character-card-simple-list-section/character-card-simple-list-section.component';
 
 
 @Component({
   selector: 'app-monster-card',
   standalone: true,
   imports: [
-    DndStatsComponent,
+    CharacterCardSimpleListSectionComponent,
+    CharacterAbilityScore,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule],
@@ -34,11 +36,13 @@ export class MonsterCardComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.getMonster();
-    this.store.select(selector.selectCurrentCharacter).subscribe({
-      next: (currentMonster) => {
-        this.monster = currentMonster;
-      }
-    });
+
+    this.subs.add(
+      this.store.select(selector.selectCurrentCharacter).subscribe({
+        next: (currentMonster) => {
+          this.monster = currentMonster;
+        }
+      }));
   }
 
   ngOnDestroy(): void {

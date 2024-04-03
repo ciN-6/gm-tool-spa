@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DndStatsComponent } from './dnd-stats.component';
+import { CharacterAbilityScore } from './character-ability-scores.component';
 
 describe('DndStatsComponent', () => {
-  let component: DndStatsComponent;
-  let fixture: ComponentFixture<DndStatsComponent>;
+  let component: CharacterAbilityScore;
+  let fixture: ComponentFixture<CharacterAbilityScore>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DndStatsComponent]
+      imports: [CharacterAbilityScore]
     })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(DndStatsComponent);
+      .compileComponents();
+
+    fixture = TestBed.createComponent(CharacterAbilityScore);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

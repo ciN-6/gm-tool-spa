@@ -1,0 +1,63 @@
+<div class="all-item">
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column">
+        <div class="item header">STR</div>
+        <div class="item small">{{monster.strength}}</div>
+        <div class="item">{{calculateModifier(monster.strength)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column" style="justify-items: center;">
+        <div class="item header">DEX</div>
+        <div class="item small">{{monster.dexterity}}</div>
+        <div class="item">{{calculateModifier(monster.dexterity)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column">
+        <div class="item header">CON</div>
+        <div class="item small">{{monster.constitution}}</div>
+        <div class="item">{{calculateModifier(monster.constitution)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column">
+        <div class="item header">INT</div>
+        <div class="item small">{{monster.intelligence}}</div>
+        <div class="item">{{calculateModifier(monster.intelligence)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column">
+        <div class="item header">WIS</div>
+        <div class="item small">{{monster.wisdom}}</div>
+        <div class="item">{{calculateModifier(monster.wisdom)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <div class="flex-column">
+        <div class="item header">CHA</div>
+        <div class="item small">{{monster.charisma}}</div>
+        <div class="item">{{calculateModifier(monster.charisma)}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+
+
+</div>

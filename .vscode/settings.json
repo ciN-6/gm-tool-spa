@@ -9,6 +9,7 @@
     "editor.formatOnSave": true, // optional
     "editor.formatOnSaveMode": "file", // required to format on save
     "files.autoSave": "onFocusChange", // optional but recommended
+    "workbench.editor.revealIfOpen": true,
     "vs-code-prettier-eslint.prettierLast": true,
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"

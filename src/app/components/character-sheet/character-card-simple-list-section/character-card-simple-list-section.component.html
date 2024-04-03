@@ -1,0 +1,16 @@
+<mat-card class="special-ability">
+  <mat-card-content>
+    <div>
+      <div class="h2">
+        {{sectionName}}
+      </div>
+      <div class="flex-row" style="column-gap: 4px;">
+        @for (item of items; track $index) {
+        <div>
+          {{item}}
+        </div>
+        }
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -15,19 +15,29 @@
 }
 
 .h2{
-    padding-top: $pad-medium;
     color: $color-primary;
     font-size: large;
+}
+.h3{
+    color: $color-accent;
+    font-size: medium;
 }
 
 .grid-section{
     display: grid;
+    padding-top: $pad-small;
     grid-template-columns: 1fr 1fr;
 }
 
 .monster-name{
     color: $color-warn;
     font-size: x-large;
+}
+.value-item{
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    color: $color-accent;
 }
 
 .primary{
@@ -36,4 +46,10 @@
 
 .header{
     column-gap: $pad-xlarge;
+    justify-content: space-between;
+    
+}
+
+.card {
+    background-color: $color-card-darker;
 }

@@ -20,6 +20,7 @@ $my-theme: mat.define-dark-theme((
 
 $color-primary: mat.get-theme-color($my-theme, primary, default);
 $color-highlight: mat.define-palette($my-gray-palette, 100);
+$color-card-darker: mat.get-color-from-palette($my-gray-palette, 900);
 $color-accent: mat.get-color-from-palette($my-accent, 200);
 $color-warn: mat.get-color-from-palette($my-warn, 300);
 

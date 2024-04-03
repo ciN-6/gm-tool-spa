@@ -1,9 +1,14 @@
+@import 'variable';
+
 .item {
     display: flex;
     justify-content: center;
 }
 .small {
     font-size: small;
+}
+.header{
+    color: $color-primary;
 }
 
 
@@ -12,4 +17,9 @@
     flex-direction: row;
     flex-wrap: nowrap;
     column-gap: 4px;
+    justify-content: space-between;
+}
+
+.mat-mdc-card{
+        background-color: $color-card-darker;
 }

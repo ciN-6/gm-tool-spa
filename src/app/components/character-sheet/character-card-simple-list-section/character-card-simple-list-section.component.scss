@@ -1,0 +1,12 @@
+@import 'variable';
+
+.special-ability {
+    background-color: $color-card-darker;
+}
+
+
+.h2{
+    padding-top: $pad-medium;
+    color: $color-primary;
+    font-size: large;
+}
