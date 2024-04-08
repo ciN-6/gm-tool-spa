@@ -1,0 +1,68 @@
+<div class="page">
+  <form class="spell-search-form">
+    <mat-form-field>
+      <mat-label>Spell Name filters</mat-label>
+
+      <input
+        matInput
+        type="text"
+        aria-label="Spell Name"
+        placeholder="Spell Name"
+        [formControl]="spellNameInputCtrl"
+        id="spellNameInputCtrl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (name of spellNamesFilteredOptions | async ; track name) {
+        <mat-option [value]="name">{{ name }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <app-auto-input-filter
+      [label]="'School of Magic'"
+      [allOptions]="schoolFilterOptions"
+      (newFilterEvent)="setSchoolFilterEvent($event)"
+    ></app-auto-input-filter>
+
+    <app-auto-input-filter
+      [label]="'Level'"
+      [allOptions]="convertNumToStr(levelFilterOptions)"
+      (newFilterEvent)="setLevelFilterEvent($event)"
+    ></app-auto-input-filter>
+  </form>
+  <mat-accordion class="spell-search-list" multi>
+    @for (spell of currentSpellPage; track $index) {
+    <mat-expansion-panel (opened)="opened(spell)" (closed)="closed(spell)">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="panel-title">
+          {{ spell.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <div style="padding-right: 8px">
+            {{ spell.level }}
+          </div>
+          <div style="min-width: 100px">
+            @if (spell.school) {
+            <div>{{ spell.school.name }}</div>
+            }
+          </div>
+          <div class="truncate">{{ spell.desc }}</div>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      @if(isThisOneOpened(spell)) {
+      <app-spell-card [incomingSpell]="spell"></app-spell-card>
+      }
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+
+  <mat-paginator
+    (page)="handlePageEvent($event)"
+    [length]="currentFilteredSpellPage.length"
+    [pageSizeOptions]="[5, 10, 15]"
+    aria-label="Select spell page"
+  >
+  </mat-paginator>
+</div>

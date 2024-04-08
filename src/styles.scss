@@ -76,3 +76,29 @@ hr {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), mat.get-color-from-palette($my-accent, 200), rgba(0, 0, 0, 0));
 }
+.h2{
+    
+    color: $color-primary;
+    font-size: large;
+}
+.h3{
+    padding-top: $pad-small;
+    color: $color-accent;
+    font-size: medium;
+}
+
+.warn{
+    color: mat.get-color-from-palette($my-warn, 300);
+}
+
+.card-back{
+    background-color: $color-card-darker;
+}
+
+strong {
+    color: $color-accent;
+    font-weight: 400;
+}
+p h5 {
+    margin: $pad-medium 0;
+}

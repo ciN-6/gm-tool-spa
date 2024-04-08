@@ -12,6 +12,6 @@
     "workbench.editor.revealIfOpen": true,
     "vs-code-prettier-eslint.prettierLast": true,
     "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     } // set as "true" to run 'prettier' last not first
 }

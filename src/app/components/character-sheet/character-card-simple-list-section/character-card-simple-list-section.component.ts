@@ -10,7 +10,6 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class CharacterCardSimpleListSectionComponent implements OnInit {
   ngOnInit(): void {
-    console.log("SECTION", this.sectionName, this.items)
   }
 
   @Input() sectionName!: string;

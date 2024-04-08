@@ -10,6 +10,8 @@ import { provideState } from '@ngrx/store';
 import { tokenCount, tokenCountReducer } from './store/reducers/token-count.reducer';
 import { characterStoreKey, turnOrderReducer } from './store/reducers/turn-order.reducer';
 import { diceRoller, diceRollerReducer } from './store/reducers/dice-roller.reducer';
+import { spellReducer, spellStoreKey } from './store/reducers/spell.reducer'
+import { SpellSearchComponent } from './components/spells/spell-search/spell-search.component';
 
 export const routes: Routes = [
 
@@ -36,6 +38,13 @@ export const routes: Routes = [
     providers: [
       provideState(
         { name: tokenCount, reducer: tokenCountReducer }),
+    ]
+  },
+  {
+    path: 'spells', component: SpellSearchComponent,
+    providers: [
+      provideState(
+        { name: spellStoreKey, reducer: spellReducer }),
     ]
   },
   { path: 'charts', component: ChartsComponent },

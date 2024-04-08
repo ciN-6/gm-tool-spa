@@ -6,19 +6,19 @@
     <div class="flex-row">
       <div class="flex-column" style="row-gap: 8px; width: 580px;">
         <div class="header">
-          <mat-card class="card">
+          <mat-card class="card-back">
             <mat-card-content>
               <div class="monster-name">{{monster.name}}</div>
               <div>{{monster.size}}</div>
             </mat-card-content>
           </mat-card>
-          <mat-card class="card">
+          <mat-card class="card-back">
             <mat-card-content>
               <div class="h2">Health</div>
               <div class="value-item">{{monster.hit_points}}</div>
             </mat-card-content>
           </mat-card>
-          <mat-card class="card">
+          <mat-card class="card-back">
             <mat-card-content>
               <div class="h2">AC</div>
               <div class="value-item">{{monster.armor_class[0].value}}</div>
@@ -29,7 +29,7 @@
           <div class="h2">Statistics</div>
           <app-character-ability-scores [monster]="monster"></app-character-ability-scores>
         </div>
-        <mat-card class="card">
+        <mat-card class="card-back">
           <mat-card-content>
             <div class="proficiencies ">
               <div class="h2">Proficiencies</div>
@@ -44,7 +44,7 @@
           </mat-card-content>
         </mat-card>
         @if(monster.special_abilities) {
-        <mat-card class="card">
+        <mat-card class="card-back">
           <mat-card-content>
             <div>
               <div class="h2">Ability</div>
@@ -76,7 +76,7 @@
         }
 
         @if( monster.condition_immunities.length>0){
-        <mat-card class="card">
+        <mat-card class="card-back">
           <mat-card-content>
             <div class="special-ability">
               <div class="h2">
@@ -93,7 +93,7 @@
         }
 
         @if(monster.reactions && monster.reactions.length>0){
-        <mat-card class="card">
+        <mat-card class="card-back">
           <mat-card-content>
             <div class="special-ability">
               <div class="h2">
@@ -121,7 +121,11 @@
         }
 
 
+        @if(monster.actions){
 
+        <app-character-action [actions]="monster.actions">
+        </app-character-action>
+        }
       </div>
 
       <!-- Toujour a la fin -->

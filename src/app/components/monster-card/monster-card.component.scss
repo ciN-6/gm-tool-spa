@@ -14,14 +14,10 @@
     padding-top: $pad-medium;
 }
 
-.h2{
-    color: $color-primary;
-    font-size: large;
+.card-back{
+    background-color: $color-card-darker;
 }
-.h3{
-    color: $color-accent;
-    font-size: medium;
-}
+
 
 .grid-section{
     display: grid;
@@ -48,8 +44,4 @@
     column-gap: $pad-xlarge;
     justify-content: space-between;
     
-}
-
-.card {
-    background-color: $color-card-darker;
 }

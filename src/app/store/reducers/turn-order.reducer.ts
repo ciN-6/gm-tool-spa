@@ -30,17 +30,11 @@ function setCurrentMonster(state: CharacterStore, monster: { monster: Monster } 
     ...state,
     currentCharacter: monster.monster
   };
-  // console.log("setCurrentMonster\nstate", state,
-  //   "\nmonster", monster,
-  //   "\nnewState", newState)
+
   return newState;
 }
 
 function setMonster(state: CharacterStore, monster: { monster: Monster } & any) {
-
-  // console.log("setMonster\nstate", state,
-  //   "\nmonster", monster)
-
   if (!monster)
     return state;
   let character: TurnOrderCharacter | undefined;
@@ -60,10 +54,6 @@ function setMonster(state: CharacterStore, monster: { monster: Monster } & any) 
     ...state,
     characterOrder: characters
   };
-
-  // console.log("setMonster\nstate", state,
-  //   "\nmonster", monster,
-  //   "\nnewState", newState)ngng
   return newState;
 }
 

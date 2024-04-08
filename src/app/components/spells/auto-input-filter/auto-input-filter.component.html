@@ -1,0 +1,26 @@
+<mat-form-field class="auto-input-filter">
+  <mat-label>{{ label }}</mat-label>
+  <mat-chip-grid #chipGrid aria-label="selector">
+    @for (opt of curentFilters; track opt) {
+    <mat-chip-row (removed)="remove(opt)">
+      {{ opt }}
+      <button matChipRemove [attr.aria-label]="'remove ' + opt">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    }
+  </mat-chip-grid>
+  <input
+    matInput
+    #inputElem
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [matChipInputFor]="chipGrid"
+    [formControl]="inputCtrl"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    @for (opt of filteredOptions | async; track opt) {
+    <mat-option [value]="opt">{{ opt }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

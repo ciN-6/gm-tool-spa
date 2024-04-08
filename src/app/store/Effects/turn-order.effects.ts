@@ -2,9 +2,8 @@ import { Injectable } from "@angular/core";
 import { SrbApiService } from "../../services/srb-api.service";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, Observable } from "rxjs";
-import { map, exhaustMap, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { Monster } from "../../services/srb-model/models/monster/types";
-import { setMonster } from "../actions/turn-order.actions";
 import * as util from '../../util/util'
 
 const cache = new Map();

@@ -12,12 +12,14 @@ import * as selector from '../../store/selectors/turn-order.selector';
 import { MatButtonModule } from '@angular/material/button';
 import { CharacterAbilityScore } from '../character-sheet/character-ability-scores/character-ability-scores.component';
 import { CharacterCardSimpleListSectionComponent } from '../character-sheet/character-card-simple-list-section/character-card-simple-list-section.component';
+import { CharacterActionComponent } from '../character-sheet/character-action/character-action.component';
 
 
 @Component({
   selector: 'app-monster-card',
   standalone: true,
   imports: [
+    CharacterActionComponent,
     CharacterCardSimpleListSectionComponent,
     CharacterAbilityScore,
     MatButtonModule,
@@ -46,7 +48,6 @@ export class MonsterCardComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    console.log("I got destroyed.")
     this.subs.unsubscribe();
   }
 

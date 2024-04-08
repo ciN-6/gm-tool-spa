@@ -1,0 +1,20 @@
+@import 'variable';
+
+
+.upper-spell-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: $pad-xlarge;
+    padding-bottom: $pad-medium;
+}
+
+.desc{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0;
+}
+
+
+
+

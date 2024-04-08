@@ -1,4 +1,4 @@
-import { createReducer, createSelector, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as Action from '../actions/token-count.actions';
 import { Counter, TokenCount } from '..';
 
@@ -11,12 +11,9 @@ export const tokenCountReducer = createReducer(
   on(Action.decrementToken, (state, counter) => decrementAction(state, counter)),
   on(Action.removeToken, (state, counter) => removeAction(state, counter)),
   on(Action.addToken, (state, counter) => addCounterAction(state, counter))
-
 );
 
-
 function addCounterAction(state: TokenCount, counter: Counter): TokenCount {
-
 
   if (state[counter.name] > 0) {
     return state;

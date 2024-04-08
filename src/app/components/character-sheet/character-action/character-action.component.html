@@ -1,0 +1,26 @@
+<mat-card class="card-back">
+  <mat-card-content>
+
+    <div class="h2">Actions</div>
+
+    @for (action of actions; track $index) {
+
+    <div class="h3">{{action.name}}</div>
+    <div>{{action.desc}}</div>
+    <!-- <div>{{action.attack_bonus}}</div> -->
+    <!-- @for (dmg of action.damage; track $index) {
+
+    <div>{{dmg.damage_dice}}{{dmg.damage_type}}</div>
+    } -->
+    <!-- <div>{{action.dc}}</div>
+    <div>{{action.options}}</div>
+    <div>{{action.usage}}</div>
+    <div>{{action.multiattack_type}}</div>
+    <div>{{action.actions}}</div>
+    <div>{{action.action_options.desc}}</div> -->
+
+    }
+    <div>
+    </div>
+  </mat-card-content>
+</mat-card>

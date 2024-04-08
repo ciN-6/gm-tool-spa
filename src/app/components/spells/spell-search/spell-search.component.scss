@@ -1,0 +1,26 @@
+@import 'variable';
+
+.spell-search-list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+
+.truncate{
+    max-width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.spell-search-form {
+    display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+}
+
+.panel-title {
+    max-width: 200px;
+    color: $color-primary;
+    font-size: large;
+}

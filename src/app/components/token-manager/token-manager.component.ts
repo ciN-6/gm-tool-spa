@@ -1,16 +1,15 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TokenCounterComponent } from '../token-counter/token-counter.component';
+import { Store } from '@ngrx/store';
 import { Observable, Subscription, map, startWith } from 'rxjs';
 import { TokenCount } from '../../store';
-import { Store } from '@ngrx/store';
 import * as tokenSelector from '../../store/selectors/token-count.selector';
+import { TokenCounterComponent } from '../token-counter/token-counter.component';
 
 @Component({
   selector: 'app-token-manager',
@@ -40,7 +39,7 @@ export class TokenManagerComponent implements OnInit {
   public filteredOptions: Observable<string[]> = new Observable<string[]>();
   public showManager: boolean = true;
   subscription = new Subscription()
-  
+
   constructor(
     private tokenCountStore: Store<TokenCount>
   ) {
@@ -66,7 +65,7 @@ export class TokenManagerComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '')),
     );
-    
+
   }
 
 
@@ -89,8 +88,8 @@ export class TokenManagerComponent implements OnInit {
 
   removeCounter(event: string) {
     const index = this.counters.indexOf(event.toString());
-    if (index > -1) { // only splice array when item is found
-      this.counters.splice(index, 1); // 2nd parameter means remove one item only
+    if (index > -1) {
+      this.counters.splice(index, 1);
     }
   }
 
