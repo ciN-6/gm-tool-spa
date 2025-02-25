@@ -47,7 +47,7 @@ function setMonster(state: CharacterStore, monster: { monster: Monster } & any) 
       character.stat = monster.monster;
     }
   } else {
-    characters = [{ charcterName: monster.monster.name, isAdversary: true, stat: monster.monster }]
+    characters = [{ charcterName: monster.monster.name, isNPC: true, stat: monster.monster }]
   }
 
   const newState: CharacterStore = {

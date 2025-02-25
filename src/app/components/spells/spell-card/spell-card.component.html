@@ -34,7 +34,7 @@
     } @if(spell.classes) {
     <div>
       <div class="h3">Class</div>
-      <div class="flex-row" style="column-gap: 4px">
+      <div class="flex-column" style="column-gap: 4px">
         @for(class of spell.classes; track class) {
         <div>
           <div>{{ class.name }}</div>
@@ -42,10 +42,14 @@
         }
       </div>
     </div>
-    } @if(spell.ritual){
-    <div class="warn" style="align-self: center">Ritual</div>
-    } @if(spell.concentration){
-    <div class="warn" style="align-self: center">Concentration</div>
+    } @if(spell.ritual || spell.concentration) {
+    <div>
+      @if(spell.ritual){
+      <div class="yellow" style="align-self: center">Ritual</div>
+      } @if(spell.concentration){
+      <div class="yellow" style="align-self: center">Concentration</div>
+      }
+    </div>
     }
   </div>
   <hr />
@@ -54,7 +58,7 @@
     @if(spell.material) {
     <div class="h3">Material</div>
     <div class="flex-row" style="padding: 0; column-gap: 4px; align-items: end">
-      <div class="warn">{{ spell.material }}</div>
+      <div class="yellow">{{ spell.material }}</div>
     </div>
     }
   </div>
@@ -64,9 +68,9 @@
     <div class="h3">Damage</div>
     <div class="flex-row" style="padding: 0; column-gap: 4px; align-items: end">
       @if(spell.damage.damage_type){
-      <div class="warn">{{ spell.damage.damage_type.name }}</div>
+      <div class="dc-description">{{ spell.damage.damage_type.name }}</div>
       } @if(getDamage(spell)){
-      <div class="warn">{{ getDamage(spell) }}</div>
+      <div class="dc-description">{{ getDamage(spell) }}</div>
       }
     </div>
     }
@@ -76,7 +80,7 @@
     @if(spell.dc) {
     <div class="h3">DC</div>
     <div class="flex-row" style="padding: 0; column-gap: 4px; align-items: end">
-      <div class="warn">
+      <div class="dc-description">
         @if(spell.dc.dc_success!=='none') { On Sucess
         {{ spell.dc.dc_success }}, } Ability save
         {{ spell.dc.dc_type.name }}@if(spell.dc.desc) {, {{ spell.dc.desc }} }
