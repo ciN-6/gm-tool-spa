@@ -205,7 +205,6 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
       this.store.select(selectspell).pipe(take(2)).subscribe({
         next: (allSpells) => {
           if (allSpells.length > 0) {
-            console.log("received subscribe to selectSpell")
             this.allSpells = allSpells;
             this.currentFilteredSpellPage = allSpells;
             this.spellNamesFilterOptions = [...new Set(this.allSpells.map(spell => spell.name))]

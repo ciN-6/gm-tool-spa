@@ -40,7 +40,7 @@ export class TurnOrderEffects {
         return ({ type: '[monster-card] set monster', monster })
       }),
       catchError(() => {
-        console.log("error");
+        console.error("TURN-ORDER Effect | getCache::[monster-card] set monster error");
         return EMPTY
       })
     );
@@ -50,12 +50,11 @@ export class TurnOrderEffects {
     return this.service.getMonster(mstr.name)
       .pipe(
         map(monster => {
-
           cache.set(util.transformIntoKey(mstr.name), monster);
           return ({ type: '[monster-card] set monster', monster })
         }),
         catchError(() => {
-          console.log("error");
+          console.error("TURN-ORDER Effect | callService::[monster-card] set monster error");
           return EMPTY
         })
       );

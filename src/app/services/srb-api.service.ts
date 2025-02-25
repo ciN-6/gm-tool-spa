@@ -21,6 +21,7 @@ export class SrbApiService {
   public getMonster(monsterName: string): Observable<Monster> {
     let key = util.transformIntoKey(monsterName);
     let url = environment.gmToolApi + monsters + spacer + key;
+    console.log('Je suis dans Get Monster et je vais appeler :', url);
     return this.http.get<Monster>(url);
   }
 
@@ -30,8 +31,8 @@ export class SrbApiService {
     return this.http.get<Spell>(url);
   }
 
-  public getAllSpells(): Observable<any> {
-    let url = environment.gmToolApi + apiRootUrl + spells;
+  public getAllSpells(): Observable<Spell[]> {
+    let url = environment.gmToolApi + spells;
     console.log("Calling : ", url);
     return this.http.get<Spell[]>(url);
   }
@@ -39,7 +40,7 @@ export class SrbApiService {
 
   public getSpellsFiltered(level: string, school: string): Observable<Spell[]> {
     let option = { params: { level: level, school: school } }
-    let url = environment.gmToolApi + apiRootUrl + spells;
+    let url = environment.gmToolApi + spells;
     return this.http.get<Spell[]>(url, option);
   }
 

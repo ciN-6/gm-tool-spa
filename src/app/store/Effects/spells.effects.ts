@@ -43,7 +43,6 @@ export class SpellsEffects {
 
 
   private getCache(spell: Spell) {
-    console.log("SPELL EFFECT | getCache");
 
     let spellData = cache.get(util.transformIntoKey(spell.name));
     return new Observable<Spell>(sub => {
@@ -53,41 +52,20 @@ export class SpellsEffects {
         return ({ type: '[spells] set spell', monster: spell })
       }),
       catchError(() => {
-        console.log("error");
+        console.error("SPELL EFFECT | getCache::[spells] set spell error");
         return EMPTY
       })
     );
   }
 
-  private getAllSpellsGraphQL() {
-
-    console.log("SPELL EFFECT | getAllSpellsGraphQL");
-    return this.graphql
-      .watchQuery({
-        query: gql`
-          query Spells  { spells (limit : 0){ index level name desc school { name index }}}
-        `,
-      }).valueChanges.pipe(
-        map((spellReceived: any) => {
-          return ({ type: '[spells] set spell list', spells: spellReceived.data.spells })
-        }),
-        catchError(() => {
-          console.log("error");
-          return EMPTY
-        })
-      );
-  }
-
   private getAllSpells() {
-    console.log("SPELL EFFECT | getAllSpells");
     return this.service.getAllSpells()
       .pipe(
         map(spellReceived => {
-          console.log(spellReceived.data.spells)
-          return ({ type: '[spells] set spell list', spells: spellReceived.data.spells })
+          return ({ type: '[spells] set spell list', spells: spellReceived })
         }),
         catchError(() => {
-          console.log("error");
+          console.error("SPELL EFFECT | getAllSpells::[spells] set spell list error");
           return EMPTY
         })
       );
@@ -96,7 +74,6 @@ export class SpellsEffects {
 
 
   private getSpellDetail(spell: Spell) {
-    console.log("SPELL EFFECT | getSpellDetail");
     return this.service.getSpell(spell.index)
       .pipe(
         map(spellReceived => {
@@ -104,7 +81,7 @@ export class SpellsEffects {
           return ({ type: '[spells] set spell detail', spell: spellReceived })
         }),
         catchError(() => {
-          console.log("error");
+          console.error("SPELL EFFECT | getSpellDetail::[spells] set spell detail error");
           return EMPTY
         })
       );

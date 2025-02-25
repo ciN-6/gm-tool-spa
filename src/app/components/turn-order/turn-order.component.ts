@@ -53,7 +53,7 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
   public characters!: TurnOrderCharacter[];
   public filteredOptionsObs: Observable<string[]> = new Observable<string[]>();
 
-  public lastCharacterClicked: string = 'Adult Brass Dragon';
+  public lastCharacterClicked: string = '';
 
 
 
