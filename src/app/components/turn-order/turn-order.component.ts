@@ -62,7 +62,7 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
 
   turnOrderForm = this.formBuilder.group({
     characterName: new FormControl(''),
-    isAdversary: new FormControl(false)
+    isNPC: new FormControl(false)
   });
 
   constructor(
@@ -92,7 +92,7 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
   }
 
   public calculateClass(character: TurnOrderCharacter) {
-    if (character.isAdversary) {
+    if (character.isNPC) {
       return 'nowrap-elipse-advesary';
     }
     return 'nowrap-elipse';
@@ -113,7 +113,7 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     let newOrder: TurnOrderCharacter[] = [];
     const character = {
       charcterName: this.turnOrderForm.value.characterName || '',
-      isAdversary: this.turnOrderForm.value.isAdversary || false
+      isNPC: this.turnOrderForm.value.isNPC || false
     };
 
     newOrder = [...this.characters, character];
@@ -161,11 +161,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
       this.filteredPlayerNames = JSON.parse(coldStorage);
     } else {
       this.filteredPlayerNames = [
-        { charcterName: 'narciN', isAdversary: false },
-        { charcterName: 'Tolo', isAdversary: false },
-        { charcterName: 'Esma', isAdversary: false },
-        { charcterName: 'Marvarie', isAdversary: false },
-        { charcterName: 'Garfred', isAdversary: false },
+        { charcterName: 'narciN', isNPC: false },
+        { charcterName: 'Tolo', isNPC: false },
+        { charcterName: 'Esma', isNPC: false },
+        { charcterName: 'Marvarie', isNPC: false },
+        { charcterName: 'Garfred', isNPC: false },
       ];
     }
     this.store.dispatch(storeReducer.setFliteredCharacterList({

@@ -7,10 +7,10 @@ import * as util from '../util/util'
 import { Spell } from './srb-model/models/spell/types';
 
 
-const apiRootUrl = "/api";
-const monsters = "/monsters"
-const spells = "/spells"
+const apiRootUrl = "/api/gm-tool/v1";
 const spacer = "/"
+const spells = apiRootUrl + "/spells"
+const monsters = apiRootUrl + "/monsters"
 
 @Injectable({
   providedIn: 'root'
@@ -20,18 +20,18 @@ export class SrbApiService {
   constructor(private http: HttpClient) { }
   public getMonster(monsterName: string): Observable<Monster> {
     let key = util.transformIntoKey(monsterName);
-    let url = environment.dnd5eSrdApi + apiRootUrl + monsters + spacer + key;
+    let url = environment.gmToolApi + monsters + spacer + key;
     return this.http.get<Monster>(url);
   }
 
   public getSpell(spellName: string): Observable<Spell> {
     let key = util.transformIntoKey(spellName);
-    let url = environment.dnd5eSrdApi + apiRootUrl + spells + spacer + key;
+    let url = environment.gmToolApi + spells + spacer + key;
     return this.http.get<Spell>(url);
   }
 
   public getAllSpells(): Observable<any> {
-    let url = environment.dnd5eSrdApi + apiRootUrl + spells;
+    let url = environment.gmToolApi + apiRootUrl + spells;
     console.log("Calling : ", url);
     return this.http.get<Spell[]>(url);
   }
@@ -39,7 +39,7 @@ export class SrbApiService {
 
   public getSpellsFiltered(level: string, school: string): Observable<Spell[]> {
     let option = { params: { level: level, school: school } }
-    let url = environment.dnd5eSrdApi + apiRootUrl + spells;
+    let url = environment.gmToolApi + apiRootUrl + spells;
     return this.http.get<Spell[]>(url, option);
   }
 

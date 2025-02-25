@@ -1,3 +1,3 @@
 export const environment = {
-    dnd5eSrdApi: "http://localhost:8080"
+    gmToolApi: "http://localhost:8080"
 };

@@ -9,6 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { Observable, map, startWith } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
+/**
+ * auto-input-filter
+ */
 @Component({
   selector: 'app-auto-input-filter',
   standalone: true,

@@ -2,6 +2,6 @@ import { Monster } from "../services/srb-model/models/monster/types";
 
 export interface TurnOrderCharacter {
     charcterName: string;
-    isAdversary: boolean;
+    isNPC: boolean;
     stat?: Monster
 }

@@ -25,7 +25,7 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 0 5px 5px 0;
+    padding: 5px 5px 5px 5px;
 }
 
 .txt-primary {
@@ -77,28 +77,73 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), mat.get-color-from-palette($my-accent, 200), rgba(0, 0, 0, 0));
 }
 .h2{
-    
     color: $color-primary;
     font-size: large;
 }
 .h3{
     padding-top: $pad-small;
-    color: $color-accent;
+    color: $color-primary;
     font-size: medium;
 }
 
 .warn{
     color: mat.get-color-from-palette($my-warn, 300);
 }
-
+.yellow{
+    color: $color-yellow;
+}
 .card-back{
     background-color: $color-card-darker;
 }
 
 strong {
-    color: $color-accent;
+    color: $color-yellow;
     font-weight: 400;
 }
 p h5 {
     margin: $pad-medium 0;
+}
+.poison{
+    color: $color-acid;
+
+}
+.acid  {
+    color: $color-acid;
+}
+.bludgeoning {
+    color: $color-physical;
+}
+.piercing{
+    color: $color-physical;
+} 
+.slashing{
+    color: $color-physical;
+}
+.force{
+    color: $color-fire;
+}
+.fire{
+    color: $color-fire;
+}
+.lightning {
+    color: $color-lightning;
+}
+.cold {
+    color: $color-lightning;
+}
+.necro {
+    color: $color-purple;
+}
+.psychic {
+    color: $color-purple;
+}
+.thunder{
+    color: $color-purple;
+}
+
+.thunder{
+    color: $color-purple;
+}
+.radiant {
+    color: $color-yellow;
 }
