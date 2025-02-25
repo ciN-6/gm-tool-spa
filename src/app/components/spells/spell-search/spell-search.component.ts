@@ -210,6 +210,11 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
       }));
   }
 
+  /**
+   * Filter the spell list based on user input.
+   * @param value user input characters. 
+   * @returns 
+   */
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.spellNamesFilterOptions.filter(option => option.toLowerCase().includes(filterValue));

@@ -32,6 +32,7 @@ export class SrbApiService {
 
   public getAllSpells(): Observable<any> {
     let url = environment.dnd5eSrdApi + apiRootUrl + spells;
+    console.log("Calling : ", url);
     return this.http.get<Spell[]>(url);
   }
 

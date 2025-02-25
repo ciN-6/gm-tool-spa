@@ -12,6 +12,12 @@ const cache = new Map();
 @Injectable()
 export class SpellsEffects {
 
+  constructor(
+    private actions$: Actions,
+    private service: SrbApiService,
+    private graphql: Apollo
+  ) { }
+
   loadSpells = createEffect(() => this.actions$.pipe(
     ofType('[spells] get spell detail'),
     switchMap((spell: any) => {
@@ -29,18 +35,16 @@ export class SpellsEffects {
   loadOneSpell = createEffect(() => this.actions$.pipe(
     ofType('[spells] get all spells'),
     switchMap(() => {
-      return this.getAllSpellsGraphQL();
-      // return this.getAllSpells();
+      // return this.getAllSpellsGraphQL();
+      return this.getAllSpells();
     })));
 
-  constructor(
-    private actions$: Actions,
-    private service: SrbApiService,
-    private graphql: Apollo
-  ) { }
+
 
 
   private getCache(spell: Spell) {
+    console.log("SPELL EFFECT | getCache");
+
     let spellData = cache.get(util.transformIntoKey(spell.name));
     return new Observable<Spell>(sub => {
       setTimeout(() => sub.next(spellData));
@@ -57,6 +61,7 @@ export class SpellsEffects {
 
   private getAllSpellsGraphQL() {
 
+    console.log("SPELL EFFECT | getAllSpellsGraphQL");
     return this.graphql
       .watchQuery({
         query: gql`
@@ -73,10 +78,25 @@ export class SpellsEffects {
       );
   }
 
+  private getAllSpells() {
+    console.log("SPELL EFFECT | getAllSpells");
+    return this.service.getAllSpells()
+      .pipe(
+        map(spellReceived => {
+          console.log(spellReceived.data.spells)
+          return ({ type: '[spells] set spell list', spells: spellReceived.data.spells })
+        }),
+        catchError(() => {
+          console.log("error");
+          return EMPTY
+        })
+      );
+  }
 
 
 
   private getSpellDetail(spell: Spell) {
+    console.log("SPELL EFFECT | getSpellDetail");
     return this.service.getSpell(spell.index)
       .pipe(
         map(spellReceived => {
