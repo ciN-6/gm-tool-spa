@@ -1,22 +1,23 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Spell } from '../../../services/srb-model/models/spell/types';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
-import { SpellStore, getAllSpells, getSpellDetail } from '../../../store/actions/spells.actions';
-import { Store } from '@ngrx/store';
-import { selectLevel, selectMagicSchool, selectspell } from '../../../store/selectors/spell.selector';
-import { SpellCardComponent } from '../spell-card/spell-card.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { Observable, Subscription, map, startWith } from 'rxjs';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription, map, startWith, take } from 'rxjs';
+import { Spell } from '../../../services/srb-model/models/spell/types';
+import { SpellStore, getAllSpells, getSpellDetail } from '../../../store/actions/spells.actions';
+import { selectLevel, selectMagicSchool, selectspell } from '../../../store/selectors/spell.selector';
 import { AutoInputFilterComponent } from '../auto-input-filter/auto-input-filter.component';
+import { SpellCardComponent } from '../spell-card/spell-card.component';
 
 export interface FilterOptions {
   levels: number[];
@@ -34,6 +35,7 @@ export interface FilterOptions {
     AutoInputFilterComponent,
     CommonModule,
     MatAutocompleteModule,
+    MatButtonModule,
     MatChipsModule,
     MatExpansionModule,
     MatFormFieldModule,
@@ -91,6 +93,10 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
     this.subscribePageStartup();
     this.subscribeFilters();
     this.subscribeFilterSelected();
+  }
+
+  public clearSpellName() {
+    this.spellNameInputCtrl.setValue('')
   }
 
   public setSchoolFilterEvent(newFilter: string[]) {
@@ -193,10 +199,13 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   }
 
   private subscribePageStartup() {
+
+
     this.subs.add(
-      this.store.select(selectspell).subscribe({
+      this.store.select(selectspell).pipe(take(2)).subscribe({
         next: (allSpells) => {
           if (allSpells.length > 0) {
+            console.log("received subscribe to selectSpell")
             this.allSpells = allSpells;
             this.currentFilteredSpellPage = allSpells;
             this.spellNamesFilterOptions = [...new Set(this.allSpells.map(spell => spell.name))]

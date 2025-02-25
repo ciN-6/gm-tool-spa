@@ -1,39 +1,58 @@
 <div class="turn-order" class="flex-row" style="padding: 1em">
-
   <form [formGroup]="turnOrderForm" (ngSubmit)="ajouterPlayer()">
-    <mat-form-field style="padding: 1em">
-      <mat-label>Player name</mat-label>
-      <input matInput type="text" aria-label="player name" placeholder="name"
-      formControlName="characterName" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        @for (playerName of filteredOptionsObs | async; track playerName) {
-        <mat-option [value]="playerName">{{playerName}}</mat-option>
-        }
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-checkbox formControlName="isAdversary">Adversary</mat-checkbox>
-    <button mat-stroked-button color="primary">Ajouter player</button>
+    <div class="flex-row">
+      <mat-form-field style="padding: 1em">
+        <mat-label>Player name</mat-label>
+        <input
+          matInput
+          type="text"
+          aria-label="player name"
+          placeholder="name"
+          formControlName="characterName"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (playerName of filteredOptionsObs | async; track playerName) {
+          <mat-option [value]="playerName">{{ playerName }}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-checkbox formControlName="isNPC">NPC</mat-checkbox>
+      <button mat-stroked-button color="primary">Ajouter player</button>
+    </div>
   </form>
 
   <div style="padding: 1em">
-    <div cdkDropList id="players" class="dropGridList" cdkDropListOrientation="vertical" [cdkDropListData]="characters"
-      (cdkDropListDropped)="drop($event)">
+    <div
+      cdkDropList
+      id="players"
+      class="dropGridList"
+      cdkDropListOrientation="vertical"
+      [cdkDropListData]="characters"
+      (cdkDropListDropped)="drop($event)"
+    >
       @for (character of characters; track character) {
       <div class="example-box" cdkDrag [cdkDragData]="character">
         <mat-card>
-
-          <mat-card-content >
+          <mat-card-content>
             <div class="grid-card-content">
-              <div [class]="calculateClass(character)" (click)="setLastClicked(character.charcterName)">
-                {{character.charcterName}}
+              <div
+                [class]="calculateClass(character)"
+                (click)="setLastClicked(character.charcterName)"
+              >
+                {{ character.charcterName }}
               </div>
-              <button mat-stroked-button color="warn" type="submit" (click)="enleverPlayer(character)">
+              <button
+                mat-stroked-button
+                color="warn"
+                type="submit"
+                (click)="enleverPlayer(character)"
+              >
                 remove
               </button>
             </div>
           </mat-card-content>
         </mat-card>
-
       </div>
       } @empty {
       <div>No Counters</div>
@@ -42,6 +61,6 @@
   </div>
 
   @if (lastCharacterClicked) {
-    <app-monster-card [monsterName]="lastCharacterClicked" ></app-monster-card>
+  <app-monster-card [monsterName]="lastCharacterClicked"></app-monster-card>
   }
 </div>

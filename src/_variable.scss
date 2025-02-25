@@ -2,8 +2,10 @@
 @use '@angular/material' as mat;
 
 $my-primary: mat.define-palette(mat.$cyan-palette, 500);
-$my-accent: mat.define-palette(mat.$light-green-palette, A100, A200, A700);
+$my-accent: mat.define-palette(mat.$teal-palette, A100, A200, A700);
 $my-warn: mat.define-palette(mat.$red-palette, A100, A200, A700);
+$my-purple: mat.define-palette(mat.$purple-palette, A100, A400, A700);
+$my-yellow: mat.define-palette(mat.$yellow-palette, A100, A200, A700);
 $my-gray-palette:mat.define-palette(mat.$grey-palette, A100, A200, A700);
 $fear-palette:mat.define-palette(mat.$purple-palette, A100, A200, A700);
 $green-palette:mat.define-palette(mat.$green-palette, A100, A200, A700);
@@ -19,10 +21,17 @@ $my-theme: mat.define-dark-theme((
 ));
 
 $color-primary: mat.get-theme-color($my-theme, primary, default);
-$color-highlight: mat.define-palette($my-gray-palette, 100);
+
+
 $color-card-darker: mat.get-color-from-palette($my-gray-palette, 900);
 $color-accent: mat.get-color-from-palette($my-accent, 200);
 $color-warn: mat.get-color-from-palette($my-warn, 300);
+$color-yellow: mat.get-color-from-palette($my-yellow, 300);
+$color-lightning: mat.get-color-from-palette($my-primary, 300);
+$color-fire: mat.get-color-from-palette($my-yellow, 700);
+$color-acid: mat.get-color-from-palette($my-accent, 300);
+$color-physical: mat.get-color-from-palette($my-warn, 500);
+$color-purple: mat.get-color-from-palette($my-purple, 200);
 
 $pad-small: 4px;
 $pad-medium: 8px;
