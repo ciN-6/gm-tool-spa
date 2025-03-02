@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment.local';
 import * as util from '../util/util'
 import { Spell } from './srb-model/models/spell/types';
 
-
 const apiRootUrl = "/api/gm-tool/v1";
 const spacer = "/"
 const spells = apiRootUrl + "/spells"
@@ -30,7 +29,7 @@ export class SrbApiService {
     return this.http.get<Spell>(url);
   }
 
-  public getAllSpells(): Observable<any> {
+  public getAllSpells(): Observable<Spell[]> {
     let url = environment.gmToolApi + spells;
     return this.http.get<Spell[]>(url);
   }
@@ -38,7 +37,7 @@ export class SrbApiService {
 
   public getSpellsFiltered(level: string, school: string): Observable<Spell[]> {
     let option = { params: { level: level, school: school } }
-    let url = environment.gmToolApi + apiRootUrl + spells;
+    let url = environment.gmToolApi + spells;
     return this.http.get<Spell[]>(url, option);
   }
 

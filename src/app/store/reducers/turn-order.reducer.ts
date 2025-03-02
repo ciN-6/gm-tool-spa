@@ -40,14 +40,16 @@ function setMonster(state: CharacterStore, monster: { monster: Monster } & any) 
   let character: TurnOrderCharacter | undefined;
   let characters: TurnOrderCharacter[] = JSON.parse(JSON.stringify(state.characterOrder));
   if (characters.length > 0) {
-    character = characters.find((char: TurnOrderCharacter) =>
-      util.transformIntoKey(char.charcterName) === util.transformIntoKey(monster.monster.name)
-    );
-    if (character && !character.stat) {
-      character.stat = monster.monster;
+    character = characters.find((char: TurnOrderCharacter) => {
+      if (char.charcterName) {
+        return util.transformIntoKey(char.charcterName) === util.transformIntoKey(monster.monster.name)
+      } else return false;
+    });
+    if (character && !character.monster) {
+      character.monster = monster.monster;
     }
   } else {
-    characters = [{ charcterName: monster.monster.name, isNPC: true, stat: monster.monster }]
+    characters = [{ charcterName: monster.monster.name, isMonster: true, monster: monster.monster }]
   }
 
   const newState: CharacterStore = {

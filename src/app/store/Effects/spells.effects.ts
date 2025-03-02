@@ -12,7 +12,13 @@ const cache = new Map();
 @Injectable()
 export class SpellsEffects {
 
-  loadSpells = createEffect(() => this.actions$.pipe(
+  constructor(
+    private actions$: Actions,
+    private srbApiService: SrbApiService,
+    private graphql: Apollo
+  ) { }
+
+  loadSpellDetail = createEffect(() => this.actions$.pipe(
     ofType('[spells] get spell detail'),
     switchMap((spell: any) => {
 
@@ -26,18 +32,14 @@ export class SpellsEffects {
 
     })));
 
-  loadOneSpell = createEffect(() => this.actions$.pipe(
+  loadAllSpell = createEffect(() => this.actions$.pipe(
     ofType('[spells] get all spells'),
     switchMap(() => {
-      return this.getAllSpellsGraphQL();
-      // return this.getAllSpells();
+      // return this.getAllSpellsGraphQL();
+      return this.getAllSpells();
     })));
 
-  constructor(
-    private actions$: Actions,
-    private service: SrbApiService,
-    private graphql: Apollo
-  ) { }
+
 
 
   private getCache(spell: Spell) {
@@ -49,25 +51,24 @@ export class SpellsEffects {
         return ({ type: '[spells] set spell', monster: spell })
       }),
       catchError(() => {
-        console.log("error");
+        console.error("SPELL EFFECT | getCache::[spells] set spell error");
         return EMPTY
       })
     );
   }
 
-  private getAllSpellsGraphQL() {
+  private getAllSpells() {
+    return this.srbApiService.getAllSpells()
+      .pipe(
+        map(spellReceived => {
+          spellReceived.map(spell => {
+            cache.set(spell.index, spell)
+          })
 
-    return this.graphql
-      .watchQuery({
-        query: gql`
-          query Spells  { spells (limit : 0){ index level name desc school { name index }}}
-        `,
-      }).valueChanges.pipe(
-        map((spellReceived: any) => {
-          return ({ type: '[spells] set spell list', spells: spellReceived.data.spells })
+          return ({ type: '[spells] set spell list', spells: spellReceived })
         }),
         catchError(() => {
-          console.log("error");
+          console.error("SPELL EFFECT | getAllSpells::[spells] set spell list error");
           return EMPTY
         })
       );
@@ -75,16 +76,15 @@ export class SpellsEffects {
 
 
 
-
   private getSpellDetail(spell: Spell) {
-    return this.service.getSpell(spell.index)
+    return this.srbApiService.getSpell(spell.index)
       .pipe(
         map(spellReceived => {
           cache.set(util.transformIntoKey(spell.name), spellReceived);
           return ({ type: '[spells] set spell detail', spell: spellReceived })
         }),
         catchError(() => {
-          console.log("error");
+          console.error("SPELL EFFECT | getSpellDetail::[spells] set spell detail error");
           return EMPTY
         })
       );

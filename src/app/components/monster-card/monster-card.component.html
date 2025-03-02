@@ -1,42 +1,44 @@
-<mat-card style="width: 750px;">
+<mat-card style="width: 750px">
   <mat-card-content>
     @if (monster) {
 
     <!-- <button mat-stroked-button (click)="log()">bouton</button> -->
     <div class="flex-row">
-      <div class="flex-column" style="row-gap: 8px; width: 580px;">
+      <div class="flex-column" style="row-gap: 8px; width: 580px">
         <div class="header">
           <mat-card class="card-back">
             <mat-card-content>
-              <div class="monster-name">{{monster.name}}</div>
-              <div>{{monster.size}}</div>
+              <div class="monster-name">{{ monster.name }}</div>
+              <div>{{ monster.size }}</div>
             </mat-card-content>
           </mat-card>
           <mat-card class="card-back">
             <mat-card-content>
               <div class="h2">Health</div>
-              <div class="value-item">{{monster.hit_points}}</div>
+              <div class="value-item">{{ monster.hit_points }}</div>
             </mat-card-content>
           </mat-card>
           <mat-card class="card-back">
             <mat-card-content>
               <div class="h2">AC</div>
-              <div class="value-item">{{monster.armor_class[0].value}}</div>
+              <div class="value-item">{{ monster.armor_class[0].value }}</div>
             </mat-card-content>
           </mat-card>
         </div>
         <div class="statistics">
           <div class="h2">Statistics</div>
-          <app-character-ability-scores [monster]="monster"></app-character-ability-scores>
+          <app-character-ability-scores
+            [monster]="monster"
+          ></app-character-ability-scores>
         </div>
         <mat-card class="card-back">
           <mat-card-content>
-            <div class="proficiencies ">
+            <div class="proficiencies">
               <div class="h2">Proficiencies</div>
               <div class="grid-section">
                 @for (proficiency of monster.proficiencies; track $index) {
                 <div>
-                  {{proficiency.proficiency.name}} : {{proficiency.value}}
+                  {{ proficiency.proficiency.name }} : {{ proficiency.value }}
                 </div>
                 }
               </div>
@@ -50,78 +52,97 @@
               <div class="h2">Ability</div>
               @for (ability of monster.special_abilities; track $index) {
               <div class="h3">
-                {{ability.name}}
+                {{ ability.name }}
               </div>
+              @if (isSpellCastingThenExtractSpells(ability)) {
               <div>
-                {{ability.desc}}
+                @for (levelSpell of spellList ; track $index) {
+
+                <div class="flex-row">
+                  <div>
+                    <div class="flex-row">
+                      <div>
+                        <button
+                          mat-mini-fab
+                          (click)="substract(levelSpell[0])"
+                          color="warn"
+                        >
+                          {{ levelSpell[1].slots }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="spell-title">
+                    {{ levelSpell[0] }}
+                    <div class="spells">
+                      @for (spell of levelSpell[1].spells; track spell) {
+                      <div>
+                        <a (click)="routeToSpell(spell)"> {{ spell }} </a>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+                }
               </div>
-              }
+              } @else {
+              <div>
+                {{ ability.desc }}
+              </div>
+              } }
             </div>
           </mat-card-content>
         </mat-card>
-        }
-
-        @if( monster.damage_vulnerabilities.length>0){
-        <app-character-card-section [sectionName]="'Vulnerabilities'"
-          [items]="monster.damage_vulnerabilities"></app-character-card-section>
-        }
-
-        @if( monster.damage_resistances.length>0){
-        <app-character-card-section [sectionName]="'Resistances'"
-          [items]="monster.damage_resistances"></app-character-card-section>
-        }
-        @if( monster.damage_immunities.length>0){
-        <app-character-card-section [sectionName]="'Immunities'"
-          [items]="monster.damage_immunities"></app-character-card-section>
-        }
-
-        @if( monster.condition_immunities.length>0){
+        } @if( monster.damage_vulnerabilities.length>0){
+        <app-character-card-section
+          [sectionName]="'Vulnerabilities'"
+          [items]="monster.damage_vulnerabilities"
+        ></app-character-card-section>
+        } @if( monster.damage_resistances.length>0){
+        <app-character-card-section
+          [sectionName]="'Resistances'"
+          [items]="monster.damage_resistances"
+        ></app-character-card-section>
+        } @if( monster.damage_immunities.length>0){
+        <app-character-card-section
+          [sectionName]="'Immunities'"
+          [items]="monster.damage_immunities"
+        ></app-character-card-section>
+        } @if( monster.condition_immunities.length>0){
         <mat-card class="card-back">
           <mat-card-content>
             <div class="special-ability">
-              <div class="h2">
-                Condition Immunities
-              </div>
+              <div class="h2">Condition Immunities</div>
               @for (immunities of monster.condition_immunities; track $index) {
               <div>
-                {{immunities.name}}
+                {{ immunities.name }}
               </div>
               }
             </div>
           </mat-card-content>
         </mat-card>
-        }
-
-        @if(monster.reactions && monster.reactions.length>0){
+        } @if(monster.reactions && monster.reactions.length>0){
         <mat-card class="card-back">
           <mat-card-content>
             <div class="special-ability">
-              <div class="h2">
-                Reactions
-              </div>
+              <div class="h2">Reactions</div>
               @for (reaction of monster.reactions; track $index) {
               <div class="h3">
-                {{reaction.name}}
+                {{ reaction.name }}
               </div>
               <div>
-                {{reaction.desc}}
+                {{ reaction.desc }}
               </div>
               @if(reaction.dc) {
+              <div>DC</div>
               <div>
-                DC
+                {{ reaction.dc }}
               </div>
-              <div>
-                {{reaction.dc}}
-              </div>
-              }
-              }
+              } }
             </div>
           </mat-card-content>
         </mat-card>
-        }
-
-
-        @if(monster.actions){
+        } @if(monster.actions){
 
         <app-character-action [actions]="monster.actions">
         </app-character-action>
@@ -132,12 +153,13 @@
       <div class="condition">
         @for (condition of conditions; track $index) {
         <div>
-          <mat-checkbox>{{condition.name}}</mat-checkbox>
+          <mat-checkbox>{{ condition.name }}</mat-checkbox>
         </div>
         }
-
       </div>
     </div>
+    } @else {
+    <div>No data</div>
     }
   </mat-card-content>
 </mat-card>

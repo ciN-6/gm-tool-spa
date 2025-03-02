@@ -1,3 +1,6 @@
+/**
+ * Maybe I want to delete this GraphQl Part? 
+ */
 import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { ApplicationConfig, inject } from '@angular/core';

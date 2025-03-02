@@ -1,5 +1,5 @@
 <div class="page">
-  <form class="spell-search-form">
+  <form (ngSubmit)="onSubmit()" class="spell-search-form">
     <mat-form-field>
       <mat-label>Spell Name filters</mat-label>
 
@@ -43,7 +43,12 @@
   </form>
   <mat-accordion class="spell-search-list" multi>
     @for (spell of currentSpellPage; track $index) {
-    <mat-expansion-panel (opened)="opened(spell)" (closed)="closed(spell)">
+    <mat-expansion-panel
+      #expansionPanel
+      attr.spell-index="{{ spell.index }}"
+      (opened)="opened(spell)"
+      (closed)="closed(spell)"
+    >
       <mat-expansion-panel-header>
         <mat-panel-title class="panel-title">
           {{ spell.name }}
@@ -61,7 +66,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      @if(isThisOneOpened(spell)) {
+      @if(isThisSpellOpened(spell)) {
       <app-spell-card [incomingSpell]="spell"></app-spell-card>
       }
     </mat-expansion-panel>

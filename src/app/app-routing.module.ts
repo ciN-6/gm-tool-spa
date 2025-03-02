@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { TokenManagerComponent } from './components/token-manager/token-manager.component';
 import { TurnOrderComponent } from './components/turn-order/turn-order.component';
@@ -40,13 +39,21 @@ export const routes: Routes = [
         { name: tokenCount, reducer: tokenCountReducer }),
     ]
   },
+
   {
-    path: 'spells', component: SpellSearchComponent,
+    path: 'spells/:route-spell-index', component: SpellSearchComponent,
     providers: [
       provideState(
         { name: spellStoreKey, reducer: spellReducer }),
     ]
   },
+  // {
+  //   path: 'spells', component: SpellSearchComponent,
+  //   providers: [
+  //     provideState(
+  //       { name: spellStoreKey, reducer: spellReducer }),
+  //   ]
+  // },
   { path: 'charts', component: ChartsComponent },
   {
     path: '**', component: TurnOrderComponent,

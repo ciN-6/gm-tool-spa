@@ -24,6 +24,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "sourceMap": {
+              "scripts": true,
+              "styles": false,
+              "hidden": true,
+              "vendor": true
+            },
             "outputPath": "docs",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -77,8 +83,8 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
+          "builder": "@angular-devkit/build-angular:dev-server",          
+          "configurations": {            
             "production": {
               "buildTarget": "gm-tool:build:production"
             },
@@ -111,6 +117,10 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+               "includePaths": [
+                 "src"]
+            },
             "scripts": []
           }
         },

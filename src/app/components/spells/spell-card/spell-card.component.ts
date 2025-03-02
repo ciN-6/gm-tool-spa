@@ -33,8 +33,11 @@ export class SpellCardComponent implements OnInit {
     this.subs.add(
       this.store.select(selectSpecificSpell(this.incomingSpell.index)).subscribe({
         next: (spell) => {
-          if (spell)
+          if (spell) {
             this.spell = spell;
+          }
+        }, error: (err) => {
+          console.error(err)
         }
       })
     )

@@ -1,66 +1,99 @@
-<div class="turn-order" class="flex-row" style="padding: 1em">
-  <form [formGroup]="turnOrderForm" (ngSubmit)="ajouterPlayer()">
-    <div class="flex-row">
-      <mat-form-field style="padding: 1em">
-        <mat-label>Player name</mat-label>
-        <input
-          matInput
-          type="text"
-          aria-label="player name"
-          placeholder="name"
-          formControlName="characterName"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          @for (playerName of filteredOptionsObs | async; track playerName) {
-          <mat-option [value]="playerName">{{ playerName }}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-checkbox formControlName="isNPC">NPC</mat-checkbox>
-      <button mat-stroked-button color="primary">Ajouter player</button>
-    </div>
-  </form>
+<div class="flex-row">
+  <div class="turn-order" class="flex-column" style="padding: 1em">
+    <form [formGroup]="turnOrderForm" (ngSubmit)="ajouterPlayer()">
+      <div class="flex-row">
+        <mat-form-field style="padding: 1em; height: min-content">
+          <mat-label>Player name</mat-label>
+          <input
+            matInput
+            type="text"
+            aria-label="player name"
+            placeholder="name"
+            formControlName="characterName"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (playerName of filteredOptionsObs | async; track playerName) {
+            <mat-option [value]="playerName">{{ playerName }}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        <div>
+          <div>Options</div>
+          <div class="flex-column">
+            <mat-checkbox formControlName="isMonster">NPC</mat-checkbox>
+            <mat-checkbox
+              formControlName="isDndBeyondCharacter"
+              (click)="toggleDndBeyond()"
+              >Dnd Beyond?</mat-checkbox
+            >
 
-  <div style="padding: 1em">
-    <div
-      cdkDropList
-      id="players"
-      class="dropGridList"
-      cdkDropListOrientation="vertical"
-      [cdkDropListData]="characters"
-      (cdkDropListDropped)="drop($event)"
-    >
-      @for (character of characters; track character) {
-      <div class="example-box" cdkDrag [cdkDragData]="character">
-        <mat-card>
-          <mat-card-content>
-            <div class="grid-card-content">
-              <div
-                [class]="calculateClass(character)"
-                (click)="setLastClicked(character.charcterName)"
-              >
-                {{ character.charcterName }}
-              </div>
-              <button
-                mat-stroked-button
-                color="warn"
-                type="submit"
-                (click)="enleverPlayer(character)"
-              >
-                remove
-              </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
+            @if(isDndBeyondCharacter) {
+
+            <mat-form-field style="padding: 1em">
+              <mat-label>Dnd Beyond Character id</mat-label>
+
+              <input
+                matInput
+                type="text"
+                formControlName="dndBeyondid"
+                placeholder="dnd beyond id"
+                aria-label="player name"
+              />
+            </mat-form-field>
+
+            }
+          </div>
+        </div>
       </div>
-      } @empty {
-      <div>No Counters</div>
-      }
+      <button mat-stroked-button color="primary">Ajouter player</button>
+    </form>
+
+    <div style="padding: 1em">
+      <div
+        style="
+          justify-content: space-around;
+          padding: 4px;
+          background-color: rgb(28, 30, 30);
+        "
+        cdkDropList
+        id="players"
+        class="dropGridList"
+        cdkDropListOrientation="vertical"
+        [cdkDropListData]="characters"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (character of characters; track character) {
+        <div class="example-box" cdkDrag [cdkDragData]="character">
+          <mat-card>
+            <mat-card-content>
+              <div class="grid-card-content">
+                <div
+                  [class]="calculateClass(character)"
+                  (click)="setLastClicked(character)"
+                >
+                  {{ character.charcterName }}
+                </div>
+                <button
+                  mat-stroked-button
+                  color="warn"
+                  type="submit"
+                  (click)="enleverPlayer(character)"
+                >
+                  remove
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        } @empty {
+        <div>No Counters</div>
+        }
+      </div>
     </div>
   </div>
 
-  @if (lastCharacterClicked) {
-  <app-monster-card [monsterName]="lastCharacterClicked"></app-monster-card>
+  @if (clickedMonster) {
+  <app-monster-card [monsterReceived]="clickedMonster"></app-monster-card>
   }
 </div>
