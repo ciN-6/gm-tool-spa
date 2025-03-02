@@ -53,16 +53,18 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
   public characters!: TurnOrderCharacter[];
   public filteredOptionsObs: Observable<string[]> = new Observable<string[]>();
 
-  public lastCharacterClicked: string = '';
-
-
+  // public lastCharacterClicked: string = 'mage';
+  public clickedMonster: TurnOrderCharacter = {};
+  public isDndBeyondCharacter: boolean = false;
 
   private sub: Subscription = new Subscription();
   @Input() showManager: boolean = true;
 
   turnOrderForm = this.formBuilder.group({
     characterName: new FormControl(''),
-    isNPC: new FormControl(false)
+    isMonster: new FormControl(false),
+    isDndBeyondCharacter: new FormControl(false),
+    dndBeyondid: new FormControl('')
   });
 
   constructor(
@@ -87,21 +89,34 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     this.filteredOptionsObs = this.turnOrderForm.controls['characterName']
       .valueChanges.pipe(
         startWith(''),
-        map(value => this._filter(value || '')),
+        map(value => this._filterPlayerName(value || '')),
       );
   }
 
+  /**
+   * Permet de calculer la classe css à appliquer à un élément en fonction de son type (npc ou player)
+   * @param character 
+   * @returns 
+   */
   public calculateClass(character: TurnOrderCharacter) {
-    if (character.isNPC) {
+    if (character.isMonster) {
       return 'nowrap-elipse-advesary';
     }
     return 'nowrap-elipse';
   }
 
+  /**
+   * ajoute un player a la liste des joueurs
+   * @returns 
+   */
   public ajouterPlayer() {
     if (!this.turnOrderForm.value.characterName) {
       return;
     }
+    if (this.isDndBeyondCharacter) {
+      return;
+    }
+
     if (this.characters.map(item => item.charcterName)
       .includes(this.turnOrderForm.value.characterName)) {
       this.turnOrderForm.reset();
@@ -113,7 +128,7 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     let newOrder: TurnOrderCharacter[] = [];
     const character = {
       charcterName: this.turnOrderForm.value.characterName || '',
-      isNPC: this.turnOrderForm.value.isNPC || false
+      isMonster: this.turnOrderForm.value.isMonster || false
     };
 
     newOrder = [...this.characters, character];
@@ -126,6 +141,10 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     this.turnOrderForm.reset();
   }
 
+  /**
+   * retire un joueur de la liste des joueurs
+   * @param player 
+   */
   public enleverPlayer(player: TurnOrderCharacter) {
     const idx = this.characters.indexOf(player);
     if (idx > -1) {
@@ -134,15 +153,32 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
     this.store.dispatch(storeReducer.reorderCharacter({ characters: this.characters }));
   }
 
-  public setLastClicked(charcterName: string) {
-    this.lastCharacterClicked = charcterName;
+  /**
+   * set le nom du dernier joueur cliqué dans clickedMonster.
+   * TODO Je crois qu'il faut retirer cette fonction.
+   * @param character 
+   */
+  public setLastClicked(character: TurnOrderCharacter) {
+    console.log("setLastClicked", character);
+    if (character) {
+      this.clickedMonster = character;
+    }
   }
 
-  private _filter(value: string): string[] {
+  /**
+   * permet de filtrer la liste des joueurs dans le input "PlayerName"
+   * @param value 
+   * @returns 
+   */
+  private _filterPlayerName(value: string): string[] {
     const filterValue = value.toLowerCase();
     if (this.filteredPlayerNames) {
       return this.filteredPlayerNames
-        .map(item => item.charcterName)
+        .map(item => {
+          if (item.charcterName) {
+            return item.charcterName
+          } else { return '' }
+        })
         .filter(option => option.toLowerCase().includes(filterValue));
     } else {
       return [];
@@ -150,6 +186,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * deplace un joueur dans la liste des joueurs apres une action de 
+   * drag and drop
+   * @param event 
+   */
   public drop(event: CdkDragDrop<TurnOrderCharacter[]>) {
     moveItemInArray(this.characters, event.previousIndex, event.currentIndex);
     this.store.dispatch(storeReducer.reorderCharacter({ characters: this.characters }));
@@ -161,11 +202,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
       this.filteredPlayerNames = JSON.parse(coldStorage);
     } else {
       this.filteredPlayerNames = [
-        { charcterName: 'narciN', isNPC: false },
-        { charcterName: 'Tolo', isNPC: false },
-        { charcterName: 'Esma', isNPC: false },
-        { charcterName: 'Marvarie', isNPC: false },
-        { charcterName: 'Garfred', isNPC: false },
+        { charcterName: 'narciN', isMonster: false },
+        { charcterName: 'Tolo', isMonster: false },
+        { charcterName: 'Esma', isMonster: false },
+        { charcterName: 'Marvarie', isMonster: false },
+        { charcterName: 'Garfred', isMonster: false },
       ];
     }
     this.store.dispatch(storeReducer.setFliteredCharacterList({
@@ -191,6 +232,11 @@ export class TurnOrderComponent implements OnInit, OnDestroy {
         }
       }
     ));
+  }
+
+
+  public toggleDndBeyond() {
+    this.isDndBeyondCharacter = !this.isDndBeyondCharacter;
   }
 
 }

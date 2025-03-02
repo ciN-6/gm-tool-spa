@@ -1,11 +1,11 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,9 @@ import { SpellStore, getAllSpells, getSpellDetail } from '../../../store/actions
 import { selectLevel, selectMagicSchool, selectspell } from '../../../store/selectors/spell.selector';
 import { AutoInputFilterComponent } from '../auto-input-filter/auto-input-filter.component';
 import { SpellCardComponent } from '../spell-card/spell-card.component';
+import { ActivatedRoute } from '@angular/router';
+import * as util from '../../../util/util';
+import spell from '../../../services/srb-model/models/spell';
 
 export interface FilterOptions {
   levels: number[];
@@ -46,14 +49,15 @@ export interface FilterOptions {
     ReactiveFormsModule,
     SpellCardComponent],
   templateUrl: './spell-search.component.html',
-  styleUrl: './spell-search.component.scss'
+  styleUrl: './spell-search.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SpellSearchComponent implements OnInit, OnDestroy {
 
   public allSpells: Spell[] = [];
   public currentSpellPage: Spell[] = [];
   public currentFilteredSpellPage: Spell[] = [];
-  public curentFilters: FilterOptions = {
+  public curentFiltersOptions: FilterOptions = {
     levels: [], school: [], class: [], spellName: ''
   }
 
@@ -65,9 +69,12 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   public pageSize: number = 5;
   public pageIndex: number = 0;
   public panelOpenState = false;
+
   //panel
   public isOpened = false;
   public openedPanelSpells: Spell[] = [];
+  @ViewChildren(MatExpansionPanel)
+  expansionPanels!: QueryList<MatExpansionPanel>;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   public schoolFilterOptions: string[] = [];
@@ -78,10 +85,13 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   public spellNamesFilteredOptions: Observable<string[]> = new Observable<string[]>();
   public spellNameInputCtrl = new FormControl<string>('');
 
+  public spellIndexFromRoute: string | null = null;
+
   private subs = new Subscription()
 
   constructor(
-    private store: Store<SpellStore>
+    private store: Store<SpellStore>,
+    private route: ActivatedRoute
   ) { }
 
   ngOnDestroy(): void {
@@ -89,24 +99,39 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this.subscribeRouteSpellIndex();
     this.store.dispatch(getAllSpells());
     this.subscribePageStartup();
     this.subscribeFilters();
-    this.subscribeFilterSelected();
+    this.subscribeFilterNameInputSelected();
+
+  }
+
+  @HostListener('keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent default "Enter" behavior (form submission)
+    }
+  }
+
+  public onSubmit() {
+    this.applyFilters();
   }
 
   public clearSpellName() {
-    this.spellNameInputCtrl.setValue('')
+    this.spellNameInputCtrl.setValue('');
   }
 
   public setSchoolFilterEvent(newFilter: string[]) {
-    this.curentFilters.school = newFilter
+    this.curentFiltersOptions.school = newFilter
     this.applyFilters();
   }
+
   public setLevelFilterEvent(newFilter: string[]) {
-    this.curentFilters.levels = newFilter.map(x => +x)
+    this.curentFiltersOptions.levels = newFilter.map(x => +x)
     this.applyFilters();
   }
+
   public convertNumToStr(array: number[]) {
     return array.map(x => x.toString())
   }
@@ -121,11 +146,11 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   }
 
   public opened(spell: Spell) {
-    this.store.dispatch(getSpellDetail(spell))
+    this.store.dispatch(getSpellDetail(spell));
     this.openedPanelSpells.push(spell);
   }
 
-  public isThisOneOpened(spell: Spell) {
+  public isThisSpellOpened(spell: Spell) {
     return this.openedPanelSpells.findIndex(x => x.index === spell.index) >= 0
 
   }
@@ -138,26 +163,35 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
   }
 
   private applyFilters() {
-    if (!this.curentFilters) { return }
-    let newFilter: Spell[] = JSON.parse(JSON.stringify(this.allSpells));
-    if (this.curentFilters.spellName) {
-      newFilter = newFilter.filter(spell => this.curentFilters.spellName === spell.name);
+    if (!this.curentFiltersOptions) { return }
+
+    let newFilteredPage: Spell[] = JSON.parse(JSON.stringify(this.allSpells));
+
+    if (this.curentFiltersOptions.spellName) {
+
+      newFilteredPage = newFilteredPage.filter(spell =>
+        util.transformIntoKey(spell.name).includes(
+          util.transformIntoKey(this.curentFiltersOptions.spellName)));
     }
-    if (this.curentFilters.levels && this.curentFilters.levels?.length > 0) {
-      newFilter = newFilter.filter(spell => {
-        if (this.curentFilters.levels)
-          return this.curentFilters.levels.includes(spell.level)
+
+    if (this.curentFiltersOptions.levels && this.curentFiltersOptions.levels?.length > 0) {
+      newFilteredPage = newFilteredPage.filter(spell => {
+        if (this.curentFiltersOptions.levels)
+          return this.curentFiltersOptions.levels.includes(spell.level);
         return false;
       });
     }
-    if (this.curentFilters.school && this.curentFilters.school?.length > 0) {
-      newFilter = newFilter.filter(spell => {
-        if (this.curentFilters.school)
-          return this.curentFilters.school.includes(spell.school.name)
+
+
+    if (this.curentFiltersOptions.school && this.curentFiltersOptions.school?.length > 0) {
+      newFilteredPage = newFilteredPage.filter(spell => {
+        if (this.curentFiltersOptions.school)
+          return this.curentFiltersOptions.school.includes(spell.school.name);
         return false;
       })
     }
-    this.currentFilteredSpellPage = newFilter;
+
+    this.currentFilteredSpellPage = newFilteredPage;
     this.setCurrentSpellPage();
   }
 
@@ -167,11 +201,37 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
     this.currentSpellPage = this.currentFilteredSpellPage.slice(start, end);
   }
 
-  private subscribeFilterSelected() {
+  private openSpellPanel(spellToOpen: Spell) {
+    // Use a timeout to ensure panels are rendered
+    setTimeout(() => {
+      const panelToOpen = this.expansionPanels.find(
+        panel => panel._body.nativeElement.parentElement?.getAttribute('spell-index') === spellToOpen.index);
+      if (panelToOpen) {
+        panelToOpen.open();
+      }
+      console.groupEnd();
+    });
+  }
+
+  private subscribeFilterNameInputSelected() {
     this.subs.add(
       this.spellNameInputCtrl.valueChanges.subscribe({
         next: (val) => {
-          this.curentFilters = { ...this.curentFilters, spellName: val ? val : undefined };
+          let spellValue = val ? val : '';
+          this.curentFiltersOptions = { ...this.curentFiltersOptions, spellName: spellValue };
+
+          console.log("spellValue", spellValue);
+          if (!this.openedPanelSpells.find(x => x.name.includes(spellValue))) {
+
+            let spellToOpen = this.allSpells.find(x =>
+              util.transformIntoKey(x.name) === spellValue);
+
+            if (spellToOpen) {
+              console.log("Spell to open", spellToOpen);
+              this.openSpellPanel(spellToOpen);
+            }
+          }
+
           this.applyFilters();
         }
       }));
@@ -214,6 +274,25 @@ export class SpellSearchComponent implements OnInit, OnDestroy {
             );
           }
           this.setCurrentSpellPage();
+        },
+        complete: () => {
+          this.subscribeRouteSpellIndex();
+        }
+      }));
+
+  }
+
+
+  private subscribeRouteSpellIndex() {
+    this.subs.add(
+      this.route.params.subscribe(params => {
+        console.log("subscribeRouteSpellIndex - params", params);
+        this.spellIndexFromRoute = params['route-spell-index'];
+        if (this.spellIndexFromRoute) {
+          console.log("subscribeRouteSpellIndex - spellIndexFromRoute", this.spellIndexFromRoute);
+          this.curentFiltersOptions = { ...this.curentFiltersOptions, spellName: this.spellIndexFromRoute };
+          this.spellNameInputCtrl.setValue(this.spellIndexFromRoute)
+          this.applyFilters();
         }
       }));
   }

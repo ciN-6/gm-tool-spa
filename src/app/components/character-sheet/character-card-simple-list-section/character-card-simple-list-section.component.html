@@ -2,12 +2,12 @@
   <mat-card-content>
     <div>
       <div class="h2">
-        {{sectionName}}
+        {{ sectionName }}
       </div>
-      <div class="flex-row" style="column-gap: 4px;">
+      <div class="flex-column" style="column-gap: 4px">
         @for (item of items; track $index) {
         <div>
-          {{item}}
+          {{ item }}
         </div>
         }
       </div>

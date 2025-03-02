@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment.local';
 import * as util from '../util/util'
 import { Spell } from './srb-model/models/spell/types';
 
-
 const apiRootUrl = "/api/gm-tool/v1";
 const spacer = "/"
 const spells = apiRootUrl + "/spells"
@@ -21,7 +20,6 @@ export class SrbApiService {
   public getMonster(monsterName: string): Observable<Monster> {
     let key = util.transformIntoKey(monsterName);
     let url = environment.gmToolApi + monsters + spacer + key;
-    console.log('Je suis dans Get Monster et je vais appeler :', url);
     return this.http.get<Monster>(url);
   }
 
@@ -33,7 +31,6 @@ export class SrbApiService {
 
   public getAllSpells(): Observable<Spell[]> {
     let url = environment.gmToolApi + spells;
-    console.log("Calling : ", url);
     return this.http.get<Spell[]>(url);
   }
 

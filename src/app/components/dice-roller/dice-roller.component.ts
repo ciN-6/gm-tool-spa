@@ -13,7 +13,7 @@ import { selectDiceRoll } from '../../store/selectors/dice-roller.selector';
 @Component({
   selector: 'app-dice-roller',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, ChartsComponent, MatCardModule],
+  imports: [CommonModule, MatButtonModule, MatCardModule],
   templateUrl: './dice-roller.component.html',
   styleUrl: './dice-roller.component.scss'
 })
@@ -42,9 +42,12 @@ export class DiceRollerComponent implements OnInit {
   constructor(private store: Store<DiceRollerStore>) { }
 
   ngOnInit() {
+    console.log("Dice Roller Component initialized");
     this.subs.add(
       this.store.select(selectDiceRoll).subscribe(
+
         (value: DiceRoll[]) => {
+          console.log("in the subscribe")
           this.logs = value;
         }
       )
@@ -114,8 +117,8 @@ export class DiceRollerComponent implements OnInit {
     }
   }
 
-  public clearLogs(){
-    this.logs=[];
+  public clearLogs() {
+    this.logs = [];
     this.store.dispatch(clearDiceLog());
   }
 

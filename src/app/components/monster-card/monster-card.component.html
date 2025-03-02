@@ -54,10 +54,42 @@
               <div class="h3">
                 {{ ability.name }}
               </div>
+              @if (isSpellCastingThenExtractSpells(ability)) {
+              <div>
+                @for (levelSpell of spellList ; track $index) {
+
+                <div class="flex-row">
+                  <div>
+                    <div class="flex-row">
+                      <div>
+                        <button
+                          mat-mini-fab
+                          (click)="substract(levelSpell[0])"
+                          color="warn"
+                        >
+                          {{ levelSpell[1].slots }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="spell-title">
+                    {{ levelSpell[0] }}
+                    <div class="spells">
+                      @for (spell of levelSpell[1].spells; track spell) {
+                      <div>
+                        <a (click)="routeToSpell(spell)"> {{ spell }} </a>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+                }
+              </div>
+              } @else {
               <div>
                 {{ ability.desc }}
               </div>
-              }
+              } }
             </div>
           </mat-card-content>
         </mat-card>

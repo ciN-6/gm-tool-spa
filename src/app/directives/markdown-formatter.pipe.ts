@@ -8,7 +8,15 @@ export class markdownFormatter implements PipeTransform {
 
 
 
-  transform(value: string[], ...args: unknown[]): string {
+  /**
+   * 
+   * @param value 
+   * @param args 
+   * @returns 
+   */
+  transform(value: string[] | undefined, ...args: unknown[]): string {
+
+    if (!value) return "";
 
     let descriptions = value;
     let str = descriptions.reduce((prev, curr, idx, full) => {
@@ -20,7 +28,6 @@ export class markdownFormatter implements PipeTransform {
       }
       return returnValue;
     })
-
 
     str = str.replaceAll(/(acid)/g, "<span class='$1'>$1</span>")
     str = str.replaceAll(/(bludgeoning)/g, "<span class='$1'>$1</span>")
@@ -35,8 +42,6 @@ export class markdownFormatter implements PipeTransform {
     str = str.replaceAll(/(radiant)/g, "<span class='$1'>$1</span>")
     str = str.replaceAll(/(slashing)/g, "<span class='$1'>$1</span>")
     str = str.replaceAll(/((thunder)\w*)/g, "<span class='$2'>$1</span>")
-
-
 
     str = str.replaceAll(/(#####)\s*(.*)/g, "**$2**");
     str = str.replaceAll("***", "**");

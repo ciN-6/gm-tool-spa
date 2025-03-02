@@ -43,5 +43,14 @@
 .header{
     column-gap: $pad-xlarge;
     justify-content: space-between;
-    
+}
+.spell-title{
+    color: $color-accent;
+    gap: 2em;
+}
+.spells{
+    display: flex;
+    flex-direction: row;
+    column-gap: $pad-medium;
+
 }

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TokenManagerComponent } from './token-manager.component';
+import { StoreModule } from '@ngrx/store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TokenManagerComponent', () => {
   let component: TokenManagerComponent;
@@ -8,10 +10,14 @@ describe('TokenManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TokenManagerComponent]
+      imports: [
+        BrowserAnimationsModule,
+        StoreModule.forRoot({}),
+        TokenManagerComponent
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TokenManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

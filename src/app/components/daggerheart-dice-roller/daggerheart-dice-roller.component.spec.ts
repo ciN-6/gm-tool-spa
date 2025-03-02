@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DaggerheartDiceRollerComponent } from './daggerheart-dice-roller.component';
+import { StoreModule } from '@ngrx/store';
 
 describe('DaggerheartDiceRollerComponent', () => {
   let component: DaggerheartDiceRollerComponent;
@@ -8,10 +9,12 @@ describe('DaggerheartDiceRollerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DaggerheartDiceRollerComponent]
+      imports: [
+        DaggerheartDiceRollerComponent,
+        StoreModule.forRoot({})]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(DaggerheartDiceRollerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Monster } from '../../../services/srb-model/models/monster/types';
 import { MatCardModule } from '@angular/material/card';
 
@@ -11,7 +11,11 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class CharacterAbilityScore {
 
-  @Input() monster!: Monster;
+
+
+  @Input() monster: Monster = {} as Monster;
+
+
 
   calculateModifier(stat: number) {
     return Math.floor((stat - 10) / 2)

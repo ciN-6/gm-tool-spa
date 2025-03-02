@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TokenCounterComponent } from './token-counter.component';
+import { StoreModule } from '@ngrx/store';
 
 describe('TokenCounterComponent', () => {
   let component: TokenCounterComponent;
@@ -8,14 +9,18 @@ describe('TokenCounterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TokenCounterComponent]
+      imports: [
+        StoreModule.forRoot({}),
+        TokenCounterComponent
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TokenCounterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();

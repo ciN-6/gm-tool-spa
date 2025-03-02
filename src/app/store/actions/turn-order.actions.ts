@@ -22,7 +22,7 @@ export const setMonster = createAction(
 
 export const getMonster = createAction(
   '[Monster] get monster',
-  props<{ name: string }>());
+  props<{ name?: string }>());
 
 export const setCurrentCharacter = createAction(
   '[monster-card] set current monster',

@@ -14,9 +14,17 @@ export class TurnOrderEffects {
   loadMonster = createEffect(() => this.actions$.pipe(
     ofType('[Monster] get monster'),
     switchMap((mstr: any) => {
+      console.log("TURN-ORDER Effect | get monster");
+      if (!mstr.name) {
+        console.log("EMPTY monster name");
+        return EMPTY;
+      }
       if (cache.has(util.transformIntoKey(mstr.name))) {
+        console.debug("TURN-ORDER Effect | getCache::[monster-card] get monster");
         return this.getCache(mstr);
       } else {
+        console.debug("TURN-ORDER Effect | callService::[monster-card] get monster");
+
         return this.callService(mstr);
       }
     })));
@@ -29,7 +37,6 @@ export class TurnOrderEffects {
 
   private getCache(mstr: Monster) {
     let monster = cache.get(util.transformIntoKey(mstr.name));
-
 
     return new Observable<Monster>(sub => {
       setTimeout(() => sub.next(monster));
@@ -47,6 +54,7 @@ export class TurnOrderEffects {
   }
 
   private callService(mstr: Monster): Observable<{ type: string; monster: Monster; }> {
+    console.debug("TURN-ORDER Effect | callService::[monster-card] get monster");
     return this.service.getMonster(mstr.name)
       .pipe(
         map(monster => {

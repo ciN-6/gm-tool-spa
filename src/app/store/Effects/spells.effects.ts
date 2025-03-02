@@ -14,11 +14,11 @@ export class SpellsEffects {
 
   constructor(
     private actions$: Actions,
-    private service: SrbApiService,
+    private srbApiService: SrbApiService,
     private graphql: Apollo
   ) { }
 
-  loadSpells = createEffect(() => this.actions$.pipe(
+  loadSpellDetail = createEffect(() => this.actions$.pipe(
     ofType('[spells] get spell detail'),
     switchMap((spell: any) => {
 
@@ -32,7 +32,7 @@ export class SpellsEffects {
 
     })));
 
-  loadOneSpell = createEffect(() => this.actions$.pipe(
+  loadAllSpell = createEffect(() => this.actions$.pipe(
     ofType('[spells] get all spells'),
     switchMap(() => {
       // return this.getAllSpellsGraphQL();
@@ -43,7 +43,6 @@ export class SpellsEffects {
 
 
   private getCache(spell: Spell) {
-
     let spellData = cache.get(util.transformIntoKey(spell.name));
     return new Observable<Spell>(sub => {
       setTimeout(() => sub.next(spellData));
@@ -59,9 +58,13 @@ export class SpellsEffects {
   }
 
   private getAllSpells() {
-    return this.service.getAllSpells()
+    return this.srbApiService.getAllSpells()
       .pipe(
         map(spellReceived => {
+          spellReceived.map(spell => {
+            cache.set(spell.index, spell)
+          })
+
           return ({ type: '[spells] set spell list', spells: spellReceived })
         }),
         catchError(() => {
@@ -74,7 +77,7 @@ export class SpellsEffects {
 
 
   private getSpellDetail(spell: Spell) {
-    return this.service.getSpell(spell.index)
+    return this.srbApiService.getSpell(spell.index)
       .pipe(
         map(spellReceived => {
           cache.set(util.transformIntoKey(spell.name), spellReceived);
